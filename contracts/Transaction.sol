@@ -29,30 +29,9 @@ contract Transaction
     event ProductSold(address seller, address buyer, bytes32 productHash, uint price);
     event ProductForSaleSet(bytes32 productHash, bool forSale);
     event OwnerVerified(address ownerAddress, bytes32 productHash, bool verified);
-
-    // Change description of a product 
-    function changeDescription(bytes32 productHash, string memory newDescription) public returns (bool)  
-    {
-        require(ProductsList[productHash].owner == msg.sender, "Only the owner can change the description");
-        require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
-
-        ProductsList[productHash].description = newDescription;
-
-        emit ProductRegistered(productHash, msg.sender);
-        return true;
-    }
-
-    // Change price of a product
-    function changePrice(bytes32 productHash, uint newPrice) public returns (bool) 
-    {
-        require(ProductsList[productHash].owner == msg.sender, "Only the owner can change the price");
-        require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
-
-        ProductsList[productHash].price = newPrice;
-
-        emit ProductRegistered(productHash, msg.sender);
-        return true;
-    }
+    event ProductDescriptionChanged(bytes32 productHash, string newDescription);
+    event ProductPriceChanged(bytes32 productHash, uint newPrice);
+    event GetOwnerOfProd(bytes32 productHash, address owner);
 
     // Register a new owner
     function registerOwner(address ownerAddress,string memory ownerName) public returns (bool) 
@@ -180,4 +159,38 @@ contract Transaction
 
         return products;
     }
+
+    // Change description of a product 
+    function changeDescription(bytes32 productHash, string memory newDescription) public returns (bool)  
+    {
+        require(ProductsList[productHash].owner == msg.sender, "Only the owner can change the description");
+        require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
+
+        ProductsList[productHash].description = newDescription;
+
+        emit ProductRegistered(productHash, msg.sender);
+        emit ProductDescriptionChanged(productHash, newDescription);
+        return true;
+    }
+
+    // Change price of a product
+    function changePrice(bytes32 productHash, uint newPrice) public returns (bool) 
+    {
+        require(ProductsList[productHash].owner == msg.sender, "Only the owner can change the price");
+        require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
+
+        ProductsList[productHash].price = newPrice;
+
+        emit ProductRegistered(productHash, msg.sender);
+        emit ProductPriceChanged(productHash, newPrice);
+        return true;
+    }
+
+    function getOwnerOfProduct(bytes32 productHash) public returns (address)
+    {
+        require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
+        emit GetOwnerOfProd(productHash, ProductsList[productHash].owner);
+        return ProductsList[productHash].owner;
+    }
+
 }
