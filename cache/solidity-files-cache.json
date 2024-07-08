@@ -1,0 +1,148 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/tanish/Desktop/Codes/BlockChain/rsk-hardhat-starter/contracts/Notification.sol": {
+      "lastModificationDate": 1720445424822,
+      "contentHash": "9f4162bc24d5cb900d51f554907dff12",
+      "sourceName": "contracts/Notification.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Notification"
+      ]
+    },
+    "/home/tanish/Desktop/Codes/BlockChain/rsk-hardhat-starter/contracts/RskStarter.sol": {
+      "lastModificationDate": 1720444199974,
+      "contentHash": "ed06e3e68d5be3203799db88bb696697",
+      "sourceName": "contracts/RskStarter.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./RskStarterLogs.sol"
+      ],
+      "versionPragmas": [
+        "0.8.7"
+      ],
+      "artifacts": [
+        "RskStarter"
+      ]
+    },
+    "/home/tanish/Desktop/Codes/BlockChain/rsk-hardhat-starter/contracts/RskStarterLogs.sol": {
+      "lastModificationDate": 1720444199974,
+      "contentHash": "598eda809a708948d4bfbfc92b3f316d",
+      "sourceName": "contracts/RskStarterLogs.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.7"
+      ],
+      "artifacts": [
+        "IRskStarterLogs",
+        "RskStarterLogs"
+      ]
+    },
+    "/home/tanish/Desktop/Codes/BlockChain/rsk-hardhat-starter/contracts/Transaction.sol": {
+      "lastModificationDate": 1720445447357,
+      "contentHash": "9a4c05ebde9746fa336d4f4b32513932",
+      "sourceName": "contracts/Transaction.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Transaction"
+      ]
+    }
+  }
+}
