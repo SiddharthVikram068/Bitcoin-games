@@ -6,19 +6,19 @@ contract Notification
 {
     struct NotificationInfo 
     {
-        address from;
-        address to;
+        address sender;
+        address reciever;
         string message;
     }
 
     mapping(address => NotificationInfo[]) public notifications;
 
-    event NotificationSent(address indexed from, address indexed to, string message);
+    event NotificationSent(address indexed sender, address indexed reciever, string message);
 
-    function sendNotification(address to, string memory message) public 
+    function sendNotification(address reciever, string memory message) public 
     {
-        notifications[to].push(NotificationInfo(msg.sender, to, message));
-        emit NotificationSent(msg.sender, to, message);
+        notifications[reciever].push(NotificationInfo(msg.sender, reciever, message));
+        emit NotificationSent(msg.sender, reciever, message);
     }
 
     function getNotifications(address user) public view returns (NotificationInfo[] memory) 

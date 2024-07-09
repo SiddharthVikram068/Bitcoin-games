@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "./Notification.sol";
+
 contract Transaction 
 {
     struct Owner 
@@ -19,10 +21,18 @@ contract Transaction
         address owner;
     }
 
+    struct NotificationInfo 
+    {
+        address sender;
+        address reciever;
+        string message;
+    }
+
     uint256 public productCount = 0;
     uint256 public ownerCount = 0;
     mapping(address => Owner) public OwnersList;
     mapping(bytes32 => Product) public ProductsList;
+    mapping(address => NotificationInfo[]) public notificationsList;
 
     event OwnerRegistered(address ownerAddress, string ownerName);
     event ProductRegistered(bytes32 productHash, address ownerAddress);
@@ -32,6 +42,8 @@ contract Transaction
     event ProductDescriptionChanged(bytes32 productHash, string newDescription);
     event ProductPriceChanged(bytes32 productHash, uint newPrice);
     event GetOwnerOfProd(bytes32 productHash, address owner);
+
+    event NotificationSent(address indexed sender, address indexed reciever, string message);
 
     // Register a new owner
     function registerOwner(address ownerAddress,string memory ownerName) public returns (bool) 
@@ -94,9 +106,9 @@ contract Transaction
     }
 
     // Verify if the owner is the owner of the product
-    function verifyOwner(address ownerAddress, bytes32 productHash) internal view returns (bool) 
+    function verifyOwner(address ownerAddress, bytes32 productHash) internal returns (bool) 
     {
-        return ProductsList[productHash].owner == ownerAddress;
+        
     }
 
     // Buy a product
@@ -104,6 +116,8 @@ contract Transaction
     {
         require(verifyOwner(seller, productHash), "Seller is not the owner");
         emit OwnerVerified(seller, productHash, verifyOwner(seller, productHash));
+        sendNotification(seller, "Owner verified");
+        emit NotificationSent(seller, buyer, "Owner verified");
 
         require(OwnersList[seller].ownerAddress != address(0), "Seller not registered");
         require(OwnersList[buyer].ownerAddress != address(0), "Buyer not registered");
@@ -191,6 +205,17 @@ contract Transaction
         require(ProductsList[productHash].productHash != bytes32(0), "Product does not exist");
         emit GetOwnerOfProd(productHash, ProductsList[productHash].owner);
         return ProductsList[productHash].owner;
+    }
+
+    function sendNotification(address reciever, string memory message) internal  
+    {
+        notificationsList[reciever].push(NotificationInfo(msg.sender, reciever, message));
+        emit NotificationSent(msg.sender, reciever, message);
+    }
+
+    function getNotifications(address user) public view returns (NotificationInfo[] memory) 
+    {
+        return notificationsList[user];                 
     }
 
 }
