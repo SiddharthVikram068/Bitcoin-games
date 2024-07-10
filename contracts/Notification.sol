@@ -11,18 +11,18 @@ contract Notification
         string message;
     }
 
-    mapping(address => NotificationInfo[]) public notifications;
+    mapping(address => NotificationInfo[]) public notificationsList;
 
     event NotificationSent(address indexed sender, address indexed reciever, string message);
 
-    function sendNotification(address reciever, string memory message) public 
+    function sendNotification(address reciever, string memory message) external  
     {
-        notifications[reciever].push(NotificationInfo(msg.sender, reciever, message));
+        notificationsList[reciever].push(NotificationInfo(msg.sender, reciever, message));
         emit NotificationSent(msg.sender, reciever, message);
     }
 
-    function getNotifications(address user) public view returns (NotificationInfo[] memory) 
+    function getNotifications(address user) external view returns (NotificationInfo[] memory) 
     {
-        return notifications[user];                 
+        return notificationsList[user];                 
     }
 }
