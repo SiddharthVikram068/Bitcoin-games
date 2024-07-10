@@ -2,7 +2,7 @@
 
 // File contracts/RskStarterLogs.sol
 
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: GPL-3.0 OR MIT
 pragma solidity 0.8.7;
 
 interface IRskStarterLogs {

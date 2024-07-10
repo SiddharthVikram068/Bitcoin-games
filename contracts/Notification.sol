@@ -11,7 +11,7 @@ contract Notification
         string message;
     }
 
-    mapping(address => NotificationInfo[]) public notifications;
+    mapping(address => NotificationInfo[]) private notifications;
 
     event NotificationSent(address indexed sender, address indexed reciever, string message);
 
@@ -23,6 +23,7 @@ contract Notification
 
     function getNotifications(address user) public view returns (NotificationInfo[] memory) 
     {
+        require(msg.sender == user, "only a user can get his notifications");
         return notifications[user];                 
     }
 }
