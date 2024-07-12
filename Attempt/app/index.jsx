@@ -20,7 +20,7 @@ export default function App() {
             <Link href="/home" style={styles.link}>Go To Home</Link>
             <Link href="/testing1" style={styles.link}>Go To Testing1</Link>
             <Link href="/testing2" style={styles.link}>Go To Testing2</Link>
-            <Link href="/testing_final" style={styles.link}>Go To Testing_final</Link>
+            <Link href="/home" style={styles.link}>Go To Testing_final</Link>
 
             <CustomButton
                 title="Continue With Email"
