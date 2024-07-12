@@ -17,7 +17,7 @@ export default function Layout() {
           component={Home}
           options={{
             drawerLabel: 'Home ',
-            title: 'Overview 1',
+            // title: 'Overview 1',
           }}
         />
         <Drawer.Screen
@@ -25,7 +25,7 @@ export default function Layout() {
           component={App1}
           options={{
             drawerLabel: 'Buy ',
-            title: 'Overview 1',
+            // title: 'Overview 1',
           }}
         />
         <Drawer.Screen
@@ -33,7 +33,7 @@ export default function Layout() {
           component={App2}
           options={{
             drawerLabel: 'Sell ',
-            title: 'Overview 2',
+            // title: 'Overview 2',
           }}
         />
       </Drawer.Navigator>

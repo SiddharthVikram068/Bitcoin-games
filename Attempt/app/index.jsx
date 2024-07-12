@@ -21,7 +21,7 @@ export default function App() {
             <Link href="/testing1" style={styles.link}>Go To Testing1</Link>
             <Link href="/testing2" style={styles.link}>Go To Testing2</Link>
             <Link href="/main_home" style={styles.link}>Go To Testing_final</Link>
-
+            <Link href="/practice" style={styles.link}>Go To Practice</Link>
             <CustomButton
                 title="Continue With Email"
                 handlePress={() => router.push('/sign-in')}
