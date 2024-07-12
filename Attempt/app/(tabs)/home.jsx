@@ -4,7 +4,7 @@ import React from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 
-const Home = () => {
+export  const Home = () => {
   const { setUser, setIsLogged } = useGlobalContext();
 
   const handleLogout = async () => {

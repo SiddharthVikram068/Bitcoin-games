@@ -9,9 +9,9 @@ const Tab = createBottomTabNavigator();
 const Tab2 = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="page4" component={Page4} />
-      <Tab.Screen name="page5" component={Page5} />
-      <Tab.Screen name="page6" component={Page6} />
+      <Tab.Screen name="Home Sell" component={Page4} />
+      <Tab.Screen name="Scan Sell" component={Page5} />
+      <Tab.Screen name="Cart" component={Page6} />
     </Tab.Navigator>
   );
 };

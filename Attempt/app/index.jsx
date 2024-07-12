@@ -17,10 +17,10 @@ export default function App() {
             <Text style={[styles.title]}>Etherium Wallet </Text>
             <Text style={styles.subtitle}>Your One Stop <Text style={styles.additional}>Solution</Text></Text>
             <StatusBar style="auto" />
-            <Link href="/home" style={styles.link}>Go To Home</Link>
+            <Link href="/main_home" style={styles.link}>Go To Home</Link>
             <Link href="/testing1" style={styles.link}>Go To Testing1</Link>
             <Link href="/testing2" style={styles.link}>Go To Testing2</Link>
-            <Link href="/home" style={styles.link}>Go To Testing_final</Link>
+            <Link href="/main_home" style={styles.link}>Go To Testing_final</Link>
 
             <CustomButton
                 title="Continue With Email"
