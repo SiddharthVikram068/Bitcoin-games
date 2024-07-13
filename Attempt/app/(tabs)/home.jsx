@@ -4,10 +4,7 @@ import React from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 
-import {
-  WalletConnectModal,
-  useWalletConnectModal,
-} from "@walletconnect/modal-react-native";
+import {WalletConnectModal,useWalletConnectModal,} from "@walletconnect/modal-react-native";
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
