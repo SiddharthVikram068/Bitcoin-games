@@ -4,6 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import {Home} from"../(tabs)/home"
 import App1 from '../testing1';
 import App2 from '../testing2';
+
+import { Stack, SplashScreen } from 'expo-router';
  // Import a separate component
 
 const Drawer = createDrawerNavigator();
@@ -11,6 +13,9 @@ const Drawer = createDrawerNavigator();
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+         <Stack>
+         <Stack.Screen name="App1" options={{ headerShown: false }} />
+         </Stack>
       <Drawer.Navigator initialRouteName="TestingFinal">
       <Drawer.Screen
           name="Home"
@@ -21,7 +26,7 @@ export default function Layout() {
           }}
         />
         <Drawer.Screen
-          name="App1"
+          name="Buy"
           component={App1}
           options={{
             drawerLabel: 'Buy ',
@@ -29,7 +34,7 @@ export default function Layout() {
           }}
         />
         <Drawer.Screen
-          name="App2"
+          name="Sell"
           component={App2}
           options={{
             drawerLabel: 'Sell ',

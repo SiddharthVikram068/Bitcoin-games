@@ -7,8 +7,7 @@ import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
 import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { account } from "../../lib/appwrite";
-import { logoutCurrentUser } from '../../lib/appwrite';
+
 const SignIn = () => {  
   const { setUser, setIsLogged } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -30,7 +29,7 @@ const SignIn = () => {
       await signIn(form.email, form.password);
 
       const result = await getCurrentUser();
-      await account.deleteSession("result");
+ 
       setUser(result);
       setIsLogged(true);
 

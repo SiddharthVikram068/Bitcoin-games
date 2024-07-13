@@ -34,8 +34,11 @@ if(!fontsLoaded && !error) return null;
   return (
     <GlobalProvider>
     <Stack>
+    <Stack.Screen name="main_home" options={{ headerShown: false }} />
+    <Stack.Screen name="testing1" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      
       {/* <Stack.Screen name="/(search)/[query]" options={{ headerShown: false }} /> */}
 
     </Stack>
