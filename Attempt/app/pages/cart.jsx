@@ -1,12 +1,44 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Page6 = () => {
-  return (
-    <View>
-      <Text>Page6</Text>
-    </View>
-  )
-}
+  const [scannedData, setScannedData] = useState('');
 
-export default Page6
+  useEffect(() => {
+    // Function to retrieve scanned data from AsyncStorage
+    const retrieveScannedData = async () => {
+      try {
+        const storageKey = '@scanned_data';
+        const value = await AsyncStorage.getItem(storageKey);
+        if (value !== null) {
+          // Value was found, set it in the state
+          setScannedData(value);
+        }
+      } catch (e) {
+        // Error retrieving data
+        console.error('Failed to load scanned data:', e);
+      }
+    };
+
+    // Call the retrieve function when the component mounts
+    retrieveScannedData();
+  }, []); // Empty dependency array ensures this runs once on mount
+
+  return (
+    <View style={styles.container}>
+      <Text>Page6</Text>
+      <Text>Scanned Data: {scannedData}</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+export default Page6;
