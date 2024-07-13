@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
 import { Button } from 'react-native';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
-// import { useAsyncStorage } from '@react-native-community/async-storage';
+import {AsyncStorage} from '@react-native-async-storage/async-storage';
 
 const Page5 = () => {
   const [facing, setFacing] = useState('back');
@@ -13,13 +12,6 @@ const Page5 = () => {
   useEffect(() => {
 
   }, []);
-  const { getItem, setItem } = useAsyncStorage('@storage_key');
-
-  const readItemFromStorage = async () => {
-    const item = await getItem();
-    setValue(item);
-  };
-
 
 
   function toggleCameraFacing() {
@@ -28,11 +20,8 @@ const Page5 = () => {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    //await AsyncStorage.setItem('@storage_Key', value);
-    const storageKey = '@scanned_data'
-    await AsyncStorage.setItem(storageKey, data);
+    await AsyncStorage.setItem('@storage_Key', data);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-
   };
 
   return (
@@ -78,19 +67,3 @@ const styles = StyleSheet.create({
 });
 
 export default Page5;
-
-
-// import { useAsyncStorage } from '@react-native-community/async-storage';
-// ---
-
-// const { getItem, setItem } = useAsyncStorage('@storage_key');
-
-//   const readItemFromStorage = async () => {
-//     const item = await getItem();
-//     setValue(item);
-//   };
-
-//   const writeItemToStorage = async newValue => {
-//     await setItem(newValue);
-//     setValue(newValue);
-//   };
