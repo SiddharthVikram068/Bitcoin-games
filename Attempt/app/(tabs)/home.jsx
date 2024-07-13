@@ -1,14 +1,32 @@
 // home.jsx
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, Pressable } from 'react-native';
 import React from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 
+import {
+  WalletConnectModal,
+  useWalletConnectModal,
+} from "@walletconnect/modal-react-native";
+
+const projectId = "cd428d8e5b937ca8170797f5e352171d";
+
+const providerMetadata = {
+  name: "YOUR_PROJECT_NAME",
+  description: "YOUR_PROJECT_DESCRIPTION",
+  url: "https://your-project-website.com/",
+  icons: ["https://your-project-logo.com/"],
+  redirect: {
+    native: "YOUR_APP_SCHEME://",
+    universal: "YOUR_APP_UNIVERSAL_LINK.com",
+  },
+};
+
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
 
+  const { open, isConnected, address, provider } = useWalletConnectModal();
 
-  
   const handleLogout = async () => {
     try {
       await logout();
@@ -18,6 +36,13 @@ export const Home = () => {
     } catch (error) {
       Alert.alert("Error", error.message);
     }
+  };
+
+  const handleWalletConnection = async () => {
+    if (isConnected) {
+      return provider?.disconnect();
+    }
+    return open();
   };
 
   return (
@@ -31,6 +56,18 @@ export const Home = () => {
         </View>
       )}
       <Button title="Logout" onPress={handleLogout} />
+      <Text>{isConnected ? address : "No Connected"}</Text>
+      <Button
+          onPress={handleWalletConnection}
+          title={isConnected ? "Disconnect" : "Connect"}
+          color="#B0B0B0" // Greyish color
+        />
+
+      <WalletConnectModal
+        projectId={projectId}
+        providerMetadata={providerMetadata}
+      />
+      
     </View>
   );
 };

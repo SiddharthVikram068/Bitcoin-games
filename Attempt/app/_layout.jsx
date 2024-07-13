@@ -20,8 +20,10 @@ const RootLayout = () => {
     "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
-  
-   
+    "RegularEarth-lrrD": require("../assets/fonts/RegularEarth-lrrD.ttf"),
+    "RegularEarthNos-nKKV": require("../assets/fonts/RegularEarthNos-nKKV.ttf"),
+    "MoonkidsPersonalUseExtbd-gxPZ3": require("../assets/fonts/MoonkidsPersonalUseExtbd-gxPZ3.ttf"),
+    "Blacknorthdemo-mLE25": require("../assets/fonts/Blacknorthdemo-mLE25.otf"),
   });
 
   useEffect(()=> {

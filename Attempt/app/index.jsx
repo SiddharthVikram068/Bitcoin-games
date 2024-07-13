@@ -4,31 +4,32 @@ import { Redirect, router, Link } from 'expo-router';
 import CustomButton from '@/components/CustomButton';
 import { useGlobalContext } from '../context/GlobalProvider';
 
+
+
 export default function App() {
     const {IsLoading,isLoggedIn} = useGlobalContext();
 
-    
+
     if(isLoggedIn && !isLoading) return <Redirect href="/home"/>
     return (
         <View style={styles.container}>
+
+
+            
             <Image
                 source={require('../assets/images/cryptoWallet.png')} // Replace with your image path
                 style={styles.logo}
             />
-            <Text style={[styles.title]}>Etherium Wallet </Text>
-            <Text style={styles.subtitle}>Your One Stop <Text style={styles.additional}>Solution</Text></Text>
+            <Text style={[styles.title]}>B L O C K</Text>
+            <Text style={styles.subtitle}>Your One Stop <Text style={styles.additional}> Solution</Text> </Text>
             <StatusBar style="auto" />
             <Link href="/main_home" style={styles.link}>Go To Home</Link>
-            <Link href="/testing1" style={styles.link}>Go To Testing1</Link>
-            <Link href="/testing2" style={styles.link}>Go To Testing2</Link>
-            <Link href="/main_home" style={styles.link}>Go To Testing_final</Link>
-            <Link href="/practice" style={styles.link}>Go To Practice</Link>
             <CustomButton
                 title="Continue With Email"
                 handlePress={() => router.push('/sign-in')}
                 containerStyles="w-full mt-7"
-                // keyboardType='numeric'
             />
+            
             <StatusBar backgroundColor='#161622' style='dark' />
         </View>
     );
@@ -39,26 +40,30 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#d4f1b0', // Light green background
+        backgroundColor: '#ffffff', // Light green background
         paddingHorizontal: 20,
     },
     title: {
         fontSize: 30,
-        fontFamily: 'Poppins-Black',
+        fontFamily: 'Blacknorthdemo-mLE25',
+        // fontColor: 'yellow',
+        fontSize: 50,
         marginBottom: 10,
-        color: '#5db41c', // Match the background darkness
+        color: '#0', // Match the background darkness
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: 24,
+
         fontFamily: 'Poppins-Bold',
         textAlign: 'center',
         marginBottom: 20,
+        marginTop:30,
         color: '#333', // Adjust color as needed
     },
     additional: {
-        fontSize: 16,
-        fontFamily: 'Poppins-Bold',
-        color: '#5bb11b', // Match the background darkness
+        fontSize: 20,
+        fontFamily: 'Blacknorthdemo-mLE25',
+        color: 'gray', // Match the background darkness
     },
     logo: {
         width: 100,

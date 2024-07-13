@@ -22,7 +22,9 @@
     "@react-navigation/drawer": "^6.7.0",
     "@react-navigation/native": "^6.1.17",
     "@types/react": "~18.2.79",
-    "@walletconnect/react-native-compat": "^2.13.3",
+    "@walletconnect/react-native-compat": "^2.9.0",
+    "@walletconnect/core": "2.9.0",
+    "@walletconnect/universal-provider": "2.9.0",
     "@web3modal/ethers5-react-native": "^1.4.2",
     "appwrite": "^15.0.0",
     "ethers": "^5.7.2",
@@ -42,6 +44,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.74.2",
     "react-native-appwrite": "^0.4.0",
+    "react-native-compat": "^1.0.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-get-random-values": "^1.11.0",
     "react-native-modal": "^13.0.1",
@@ -53,7 +56,9 @@
     "react-native-url-polyfill": "^2.0.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "qrcode": "1.5.3",
+    "valtio": "1.10.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
