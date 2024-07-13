@@ -7,6 +7,8 @@ import { logout } from "../../lib/appwrite";
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
 
+
+  
   const handleLogout = async () => {
     try {
       await logout();
