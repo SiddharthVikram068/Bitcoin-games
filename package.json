@@ -1,0 +1,31 @@
+{
+  "name": "rsk-hardhat-starter",
+  "private": true,
+  "scripts": {
+    "clean": "hardhat clean",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "lint": "npx prettier --list-different 'contracts/**/*.sol' 'test/**/*.js'",
+    "lint-fix": "npx prettier --write 'contracts/**/*.sol' 'test/**/*.js'",
+    "coverage": "hardhat coverage",
+    "sc-analysis-static": "slither .",
+    "sc-analysis-dynamic": "myth analyze contracts/*.sol",
+    "flatten": "hardhat flatten contracts/* > flattened.sol",
+    "deploy-rsktestnet": "hardhat run scripts/deploy.js --network rsktestnet",
+    "console-rsktestnet": "hardhat console --network rsktestnet",
+    "new-rsktestnet-seed-phrase": "hardhat run scripts/setup-seed-phrase.js --network rsktestnet",
+    "new-rsktestnet-block": "hardhat run scripts/setup-latest-block.js --network rsktestnet"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "2.0.5",
+    "@nomiclabs/hardhat-waffle": "2.0.3",
+    "chai": "4.3.6",
+    "ethereum-waffle": "3.4.4",
+    "ethers": "5.6.2",
+    "hardhat": "2.9.7",
+    "bip39": "3.0.4",
+    "prettier": "2.6.2",
+    "prettier-plugin-solidity": "1.0.0-dev.22",
+    "solidity-coverage": "0.7.21"
+  }
+}
