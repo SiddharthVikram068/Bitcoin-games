@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);
 
-  const handleScan = (data) => {
-    setScannedData((prevData) => [...prevData, data]); // Add new scanned data to the array
-  };
+  useEffect(() => {
+    retrieveScannedData();
+  }, []);
 
   const retrieveScannedData = async () => {
     try {
-      const value = await AsyncStorage.getItem('@storage_Key');
+      const storageKey = '@scanned_data';
+      const value = await AsyncStorage.getItem(storageKey);
       if (value !== null) {
-        console.log('Scanned data:', value);
-        setScannedData(value); // Parse the JSON string into an array
+        // Value was found, set it in the state
+        setScannedData(JSON.parse(value));
       } else {
         console.log('No scanned data found');
       }
     } catch (e) {
       console.error('Failed to load scanned data:', e);
+    }
+  };
+
+  const clearScannedData = async () => {
+    try {
+      const storageKey = '@scanned_data';
+      await AsyncStorage.removeItem(storageKey);
+      setScannedData([]); // Clear the state as well
+      console.log('Scanned data cleared');
+    } catch (e) {
+      console.error('Failed to clear scanned data:', e);
     }
   };
 
@@ -31,15 +43,16 @@ const Page6 = () => {
       </Text>
       <View style={styles.listContainer}>
         {scannedData.length > 0 ? (
-         
-            <Text  style={styles.listItem}>
-              {scannedData}
+          scannedData.map((data, index) => (
+            <Text key={index} style={styles.listItem}>
+              {data}
             </Text>
-        
+          ))
         ) : (
           <Text>No scanned data available</Text>
         )}
       </View>
+      <Button title="Clear Scanned Data" onPress={clearScannedData} />
     </View>
   );
 };
