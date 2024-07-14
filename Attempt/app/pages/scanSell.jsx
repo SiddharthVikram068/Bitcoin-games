@@ -9,6 +9,8 @@ const Page5 = ({ onScan }) => {
 
   useEffect(() => {}, []);
 
+   //QR codes have data in the format of "price_productHash"
+ 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     const storageKey = '@scanned_data';
@@ -17,7 +19,12 @@ const Page5 = ({ onScan }) => {
     scannedList.push(data);
     await AsyncStorage.setItem(storageKey, JSON.stringify(scannedList));
     // onScan(data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    const simpleData = data.split('_');
+    const price = simpleData[0];
+    const productHash = simpleData[1];
+    
+   
+     alert(`Bar code with type ${type}. \n price of the product is ${price} \n product hash is ${productHash}`);
   };
 
   function toggleCameraFacing() {

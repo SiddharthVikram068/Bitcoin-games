@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -59,6 +59,11 @@ const Page6 = () => {
           <Text>No scanned data available</Text>
         )}
       </View>
+      <ScrollView style={styles.scrollContainer}>
+        {scannedData.map((data, index) => (
+          <Text key={index} style={styles.dataItem}>{data}</Text>
+        ))}
+      </ScrollView>
       <Button title="Take New Order" onPress={clearScannedData} />
     </View>
   );
@@ -74,6 +79,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     alignItems: 'center',
+  },
+  scrollContainer: {
+    marginTop: 20,
+    width: '100%',
+  },
+  dataItem: {
+    fontSize: 16,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
 });
 

@@ -22,8 +22,8 @@ export default function App() {
             <Text style={[styles.title]}>B L O C K</Text>
             <Text style={styles.subtitle}>Your One Stop <Text style={styles.additional}> Solution</Text> </Text>
             <StatusBar style="auto" />
-            {/* <Link href="/main_home" style={styles.link}>Go To Home</Link>
-            <Link href="/practice" style={styles.link}>Go To Practice</Link> */}
+            <Link href="/main_home" style={styles.link}>Go To Home</Link>
+            {/* <Link href="/practice" style={styles.link}>Go To Practice</Link> */} 
             <CustomButton
                 title="Continue With Email"
                 handlePress={() => router.replace('/sign-in')}

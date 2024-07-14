@@ -9,8 +9,24 @@ import { Link } from 'expo-router';
 import { createUser } from '../../lib/appwrite';
 import { useGlobalContext } from "../../context/GlobalProvider";
 
+import {WalletConnectModal,useWalletConnectModal,} from "@walletconnect/modal-react-native";
+
+const projectId = "cd428d8e5b937ca8170797f5e352171d";
+
+const providerMetadata = {
+  name: "YOUR_PROJECT_NAME",
+  description: "YOUR_PROJECT_DESCRIPTION",
+  url: "https://your-project-website.com/",
+  icons: ["https://your-project-logo.com/"],
+  redirect: {
+    native: "YOUR_APP_SCHEME://",
+    universal: "YOUR_APP_UNIVERSAL_LINK.com",
+  },
+};
+
 const SignUp = () => {
     const { setUser, setIsLogged } = useGlobalContext();
+    const { open, isConnected, address, provider } = useWalletConnectModal();
   
     const [isSubmitting, setSubmitting] = useState(false);
     const [form, setForm] = useState({
@@ -18,6 +34,13 @@ const SignUp = () => {
       email: "",
       password: "",
     });
+
+    const handleWalletConnection = async () => {
+        if (isConnected) {
+          return provider?.disconnect();
+        }
+        return open();
+    };
   
     const submit = async () => {
       if (form.username === "" || form.email === "" || form.password === "") {
@@ -36,6 +59,9 @@ const SignUp = () => {
       } finally {
         setSubmitting(false);
       }
+
+      handleWalletConnection();
+
     };
 
     return (
@@ -56,6 +82,7 @@ const SignUp = () => {
                         handleChangeText={(e) => setForm({ ...form, username: e })}
                         otherStyles={styles.formField}
                     />
+                    
                     <FormField
                         title="Email"
                         value={form.email}
@@ -85,8 +112,13 @@ const SignUp = () => {
                         </Link>
                     </View>
                 </View>
+                <WalletConnectModal
+            projectId={projectId}
+            providerMetadata={providerMetadata}
+                />
             </ScrollView>
         </SafeAreaView>
+        
     );
 };
 

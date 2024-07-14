@@ -4,7 +4,8 @@ import React from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 
-import {WalletConnectModal,useWalletConnectModal,} from "@walletconnect/modal-react-native";
+// import {WalletConnectModal,useWalletConnectModal,} from "@walletconnect/modal-react-native";
+import { Link } from 'expo-router';
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
@@ -22,7 +23,7 @@ const providerMetadata = {
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
 
-  const { open, isConnected, address, provider } = useWalletConnectModal();
+  // const { open, isConnected, address, provider } = useWalletConnectModal();
 
   const handleLogout = async () => {
     try {
@@ -35,12 +36,12 @@ export const Home = () => {
     }
   };
 
-  const handleWalletConnection = async () => {
-    if (isConnected) {
-      return provider?.disconnect();
-    }
-    return open();
-  };
+  // const handleWalletConnection = async () => {
+  //   if (isConnected) {
+  //     return provider?.disconnect();
+  //   }
+  //   return open();
+  // };
 
   return (
     <View style={styles.container}>
@@ -53,17 +54,18 @@ export const Home = () => {
         </View>
       )}
       <Button title="Logout" onPress={handleLogout} />
-      <Text>{isConnected ? address : "No Connected"}</Text>
-      <Button
+  
+      {/* <Text>{isConnected ? address : "No Connected"}</Text> */}
+      {/* <Button
           onPress={handleWalletConnection}
           title={isConnected ? "Disconnect" : "Connect"}
           color="#B0B0B0" // Greyish color
-        />
-
+        /> */}
+{/* 
       <WalletConnectModal
         projectId={projectId}
         providerMetadata={providerMetadata}
-      />
+      /> */}
       
     </View>
   );

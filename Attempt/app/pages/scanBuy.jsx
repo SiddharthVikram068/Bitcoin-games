@@ -22,8 +22,21 @@ const Page2 = () => {
     const ansArray = data.split('?');
     setAnsString(ansArray.join(' ')); // Set the state variable
     // alert(ansArray);
+    const seller_address = ansArray[0];
+    // const array = new Array(10);
+    const totalPrice = ansArray[1];
+const finalArray = [];
+
+for (let i = 2; i < ansArray.length; i++) {
+  finalArray.push(ansArray[i]);
+}
+
+alert(finalArray);
+
   };
 
+
+  
 
   return (
     <View style={styles.container}>
