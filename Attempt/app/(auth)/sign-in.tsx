@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, Alert,Button } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../../constants';
@@ -75,6 +75,8 @@ const SignIn = () => {
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
+          {/* <Link href="../" */}
+          <Button title="Go home" onPress={() => router.replace("../main_home")} />
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>
               Don't have an account?

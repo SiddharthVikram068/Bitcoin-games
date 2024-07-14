@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
+import { ethers } from 'ethers';
+
 
 const Page2 = () => {
   const [facing, setFacing] = useState('back');
@@ -25,17 +27,20 @@ const Page2 = () => {
     const seller_address = ansArray[0];
     // const array = new Array(10);
     const totalPrice = ansArray[1];
-const finalArray = [];
+    const finalArray = [];
 
-for (let i = 2; i < ansArray.length; i++) {
-  finalArray.push(ansArray[i]);
-}
+    for (let i = 2; i < ansArray.length; i++) {
+      finalArray.push(ansArray[i]);
+    }
 
-alert(finalArray);
+    alert(finalArray);
 
+    
   };
 
+  const payForProducts = async () => {
 
+  };
   
 
   return (
@@ -78,6 +83,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
+    // fontFamily:
+    fontFamily:'moonkids',
   },
 });
 

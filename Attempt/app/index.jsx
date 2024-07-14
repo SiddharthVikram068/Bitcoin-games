@@ -1,47 +1,92 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Link, router } from 'expo-router';
+import React, { useEffect, useRef } from "react";
+import { StyleSheet, View, Text, Animated } from "react-native";
 import LottieView from 'lottie-react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router'; // Assuming 'router' is correctly imported
 
 const HomePage = () => {
-
+  const positions = useRef([0, 1, 2, 3, 4].map(() => new Animated.Value(100))).current;
+  const glowAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push("/sign-in")
-    }, 8000); // 10 seconds
+    const animateText = () => {
+      Animated.stagger(100, positions.map(pos =>
+        Animated.timing(pos, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: true,
+        })
+      )).start();
 
-    return () => clearTimeout(timer);
-  }, [router]);
+      Animated.timing(glowAnimation, {
+        toValue: 1,
+        duration: 1500,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    const timer = setTimeout(() => {
+      router.replace('/sign-in');
+    }, 6000);
+
+    animateText();
+
+    return () => {
+      clearTimeout(timer);
+      // Clean up animations if necessary
+    };
+  }, []);
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={['#623421', '#554272']}
+      style={styles.container}
+    >
       <LottieView 
-        source={require('../Animation/block.json')} 
+        source={require('../Animation/wallet.json')} 
         autoPlay 
         loop 
         style={styles.lottie}
       />
-      <Text style={styles.text}>Welcome to Ether Wallet</Text>
-    </View>
+      <View style={styles.textContainer}>
+        {['B', 'L', 'O', 'C', 'K'].map((letter, index) => (
+          <Animated.Text key={index} style={[
+            styles.text,
+            { 
+              opacity: glowAnimation,
+              transform: [{ translateY: positions[index] }],
+            }
+          ]}>
+            {letter}
+          </Animated.Text>
+        ))}
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#fff",
   },
   lottie: {
-    width: 200,
-    height: 200,
+    width: 400,
+    height: 400,
+    marginTop: 20,
+  },
+  textContainer: {
+    flexDirection: 'row',
+    marginTop: 50,
   },
   text: {
-    fontSize: 20,
+    fontSize: 44,
     fontWeight: "bold",
-    marginTop: 20,
+    fontFamily: "MoonkidsPersonalUseExtbd-gxPZ3",
+    color: "#FFD700", // Updated glow color to yellow
+    textShadowColor: "#FFD700",
+    textShadowRadius: 10,
   },
 });
 

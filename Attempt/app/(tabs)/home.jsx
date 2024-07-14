@@ -6,6 +6,9 @@ import { logout } from "../../lib/appwrite";
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import { Link } from 'expo-router';
 
+
+
+
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
 const providerMetadata = {
@@ -22,7 +25,7 @@ const providerMetadata = {
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
-
+  
   const handleLogout = async () => {
     try {
       await logout();
@@ -33,7 +36,10 @@ export const Home = () => {
       Alert.alert("Error", error.message);
     }
   };
-
+  
+  // const Url = process.env.RSK_RPC_URL;
+  // const deploymentAddressBlock = process.env.DEPLOYMENT_ADDRESS_BLOCK;
+  
   const handleWalletConnection = async () => {
     if (isConnected) {
       return provider?.disconnect();
@@ -41,6 +47,11 @@ export const Home = () => {
     return open();
   };
 
+  // const handleenv = async () => {
+  //   await fetch(Url);
+  //   await fetch(deploymentAddressBlock);
+  // }
+  // const tempABI = JSON.parse(fs.readFileSync('temp.json', 'utf8')).abi;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
@@ -49,11 +60,13 @@ export const Home = () => {
           <Text style={styles.userInfoText}>Email: {user.email}</Text>
           <Text style={styles.userInfoText}>Username: {user.username}</Text>
           <Text style={styles.userInfoText}>Account ID: {user.accountId}</Text>
+          {/* <Text>{Url ? 'we got it' : 'we didnt'}</Text> */}
+          {/* <Text>Deployment Address Block: {deploymentAddressBlock}</Text> */}
         </View>
       )}
       <Button title="Logout" onPress={handleLogout} />
       <Text></Text>
-      <Button title="Ether" />
+      {/* <Button title="Ether"  onPress={handleenv}/> */}
       <Text>{isConnected ? 'wallet is connected' : 'wallet is not connected'}</Text>
       <Text></Text>
       <Link href="../(auth)/sign-in">Go To Sign In</Link>
