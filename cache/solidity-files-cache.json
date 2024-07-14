@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/mnt/c/programming_tutorials/Bitcoin-games/contracts/Notification.sol": {
-      "lastModificationDate": 1720916092917,
-      "contentHash": "704b469455e3d7928ec5a547cd513b18",
+      "lastModificationDate": 1720957264375,
+      "contentHash": "a041916d9018e3e89a7b4ff551e8ed8f",
       "sourceName": "contracts/Notification.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.20",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -30,18 +30,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.8.20"
       ],
       "artifacts": [
         "Notification"
       ]
     },
     "/mnt/c/programming_tutorials/Bitcoin-games/contracts/RskStarter.sol": {
-      "lastModificationDate": 1720916092917,
-      "contentHash": "d298c155afc8942084a0565807f015dc",
+      "lastModificationDate": 1720957271975,
+      "contentHash": "2876136180f8cd497e02db19c602064b",
       "sourceName": "contracts/RskStarter.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.20",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -67,18 +67,18 @@
         "./RskStarterLogs.sol"
       ],
       "versionPragmas": [
-        "0.8.7"
+        "^0.8.20"
       ],
       "artifacts": [
         "RskStarter"
       ]
     },
     "/mnt/c/programming_tutorials/Bitcoin-games/contracts/RskStarterLogs.sol": {
-      "lastModificationDate": 1720916116015,
-      "contentHash": "2f707c41d452753ab75145c4bccf212c",
+      "lastModificationDate": 1720957434270,
+      "contentHash": "efea0c4880f66c2f18ff267e4986ca08",
       "sourceName": "contracts/RskStarterLogs.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.20",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -102,7 +102,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "0.8.7"
+        "^0.8.20"
       ],
       "artifacts": [
         "IRskStarterLogs",
@@ -110,11 +110,11 @@
       ]
     },
     "/mnt/c/programming_tutorials/Bitcoin-games/contracts/temp.sol": {
-      "lastModificationDate": 1720916810324,
-      "contentHash": "bf314cb520cd1dad9e25124d09307e9c",
+      "lastModificationDate": 1720957440920,
+      "contentHash": "960be3219ca6fed6839d1298930ff2ed",
       "sourceName": "contracts/temp.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.20",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -138,18 +138,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.7"
+        "^0.8.20"
       ],
       "artifacts": [
         "temp"
       ]
     },
     "/mnt/c/programming_tutorials/Bitcoin-games/contracts/Transaction.sol": {
-      "lastModificationDate": 1720916092917,
-      "contentHash": "819798e39e746a42a095b6cc6b64c786",
+      "lastModificationDate": 1720957445314,
+      "contentHash": "2e8d9233be19ca8a46385b5a1d4b760f",
       "sourceName": "contracts/Transaction.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.20",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -173,7 +173,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.8.20"
       ],
       "artifacts": [
         "Transaction"
