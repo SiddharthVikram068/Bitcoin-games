@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
+import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
+
 
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);
   const [concatenatedData, setConcatenatedData] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
+  const { open, isConnected, address, provider } = useWalletConnectModal();
 
   useEffect(() => {
     retrieveScannedData();
@@ -83,6 +86,8 @@ const Page6 = () => {
         </View>
       </ScrollView>
       <Button title="Take New Order" onPress={clearScannedData} />
+      {/* <Text>{isConnected ? 'Wallet is connected' : 'Wallet is not connected'}</Text>
+      {isConnected && <Text>Address: {address}</Text>} */}
     </View>
   );
 };

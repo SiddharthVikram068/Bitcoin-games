@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image,Button } from 'react-native';
 import { Redirect, Link,router } from 'expo-router';
 import CustomButton from '@/components/CustomButton';
 import { useGlobalContext } from '../context/GlobalProvider';
@@ -23,7 +23,8 @@ export default function App() {
             <Text style={styles.subtitle}>Your One Stop <Text style={styles.additional}> Solution</Text> </Text>
             <StatusBar style="auto" />
             <Link href="/main_home" style={styles.link}>Go To Home</Link>
-            {/* <Link href="/practice" style={styles.link}>Go To Practice</Link> */} 
+
+            
             <CustomButton
                 title="Continue With Email"
                 handlePress={() => router.replace('/sign-in')}
