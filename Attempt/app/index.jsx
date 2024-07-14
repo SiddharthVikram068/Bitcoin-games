@@ -9,7 +9,7 @@ const HomePage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push("/sign-in")
-    }, 10000); // 10 seconds
+    }, 8000); // 10 seconds
 
     return () => clearTimeout(timer);
   }, [router]);

@@ -30,9 +30,24 @@ const Tab2 = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Page4} />
-      <Tab.Screen name="Scan" component={Page5} />
-      <Tab.Screen name="Cart" component={Page6} />
+      <Tab.Screen name="Home" options={
+        {
+
+headerShown: false 
+}
+      } component={Page4} />
+      <Tab.Screen name="Scan" options={
+        {
+
+headerShown: false 
+}
+      } component={Page5} />
+      <Tab.Screen name="Cart" options={
+        {
+
+headerShown: false 
+}
+      } component={Page6} />
     </Tab.Navigator>
   );
 };

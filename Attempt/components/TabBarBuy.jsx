@@ -28,9 +28,24 @@ const Tab1 = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Page1} />
-      <Tab.Screen name="Scan" component={Page2} />
-      <Tab.Screen name="Verify" component={Page3} />
+      <Tab.Screen name="Home" options={
+        {
+
+headerShown: false 
+}
+      } component={Page1} />
+      <Tab.Screen name="Scan" options={
+        {
+
+headerShown: false 
+}
+      } component={Page2} />
+      <Tab.Screen name="Verify"  options={
+        {
+
+headerShown: false 
+}
+      }component={Page3} />
     </Tab.Navigator>
   );
 };
