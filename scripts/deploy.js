@@ -10,8 +10,7 @@ async function main() {
   // }
 
   try {
-    await deployContract('Transaction');
-    await deployContract('Notification');
+    await deployContract('temp');
   } catch(error) {
     console.error(error);
     process.exitCode = 1;
