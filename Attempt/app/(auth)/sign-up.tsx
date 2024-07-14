@@ -97,6 +97,7 @@ const SignUp = () => {
                         otherStyles={styles.formField}
                         secureTextEntry
                     />
+                    
                     <CustomButton
                         title="Sign-up"
                         handlePress={submit}

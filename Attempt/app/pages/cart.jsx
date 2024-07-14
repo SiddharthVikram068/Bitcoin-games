@@ -6,6 +6,7 @@ import QRCode from 'react-native-qrcode-svg';
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);
   const [concatenatedData, setConcatenatedData] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     retrieveScannedData();
@@ -14,6 +15,12 @@ const Page6 = () => {
   useEffect(() => {
     // Update the concatenatedData whenever scannedData changes
     setConcatenatedData(scannedData.join('?'));
+    // Calculate the total price
+    const total = scannedData.reduce((sum, data) => {
+      const [price] = data.split('_');
+      return sum + parseInt(price, 10);
+    }, 0);
+    setTotalPrice(total);
   }, [scannedData]);
 
   const retrieveScannedData = async () => {
@@ -58,17 +65,22 @@ const Page6 = () => {
         ) : (
           <Text>No scanned data available</Text>
         )}
+
       </View>
       <ScrollView style={styles.scrollContainer}>
         {scannedData.map((data, index) => {
           const [price, hash] = data.split('_');
           return (
             <View key={index} style={styles.dataRow}>
-              <Text style={styles.dataItem}>{price}</Text>
+              <Text style={styles.dataItem}>{parseInt(price, 10)}</Text>
               <Text style={styles.dataItem}>{hash}</Text>
             </View>
           );
         })}
+        <View style={styles.totalRow}>
+          <Text style={styles.totalText}>Total Price:</Text>
+          <Text style={styles.totalText}>{totalPrice}</Text>
+        </View>
       </ScrollView>
       <Button title="Take New Order" onPress={clearScannedData} />
     </View>
@@ -99,6 +111,17 @@ const styles = StyleSheet.create({
   },
   dataItem: {
     fontSize: 16,
+  },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#000',
+  },
+  totalText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
