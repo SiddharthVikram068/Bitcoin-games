@@ -60,9 +60,15 @@ const Page6 = () => {
         )}
       </View>
       <ScrollView style={styles.scrollContainer}>
-        {scannedData.map((data, index) => (
-          <Text key={index} style={styles.dataItem}>{data}</Text>
-        ))}
+        {scannedData.map((data, index) => {
+          const [price, hash] = data.split('_');
+          return (
+            <View key={index} style={styles.dataRow}>
+              <Text style={styles.dataItem}>{price}</Text>
+              <Text style={styles.dataItem}>{hash}</Text>
+            </View>
+          );
+        })}
       </ScrollView>
       <Button title="Take New Order" onPress={clearScannedData} />
     </View>
@@ -84,11 +90,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
   },
-  dataItem: {
-    fontSize: 16,
+  dataRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+  },
+  dataItem: {
+    fontSize: 16,
   },
 });
 
