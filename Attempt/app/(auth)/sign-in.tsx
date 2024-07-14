@@ -82,6 +82,7 @@ const SignIn = () => {
               Sign-up
             </Link>
           </View>
+          {/* <Link href="../../index">index</Link> */}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -4,24 +4,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#d4f1b0", // Light green background
+        primary: "#161622",
         secondary: {
-          DEFAULT: "#2e8b57", // Main green color
-          100: "#3cb371", // Lighter shade of green
-          200: "#228b22", // Darker shade of green
+          DEFAULT: "#FF9C01",
+          100: "#FF9001",
+          200: "#FF8E01",
         },
         black: {
-          DEFAULT: "#003300", // Dark green for text
-          100: "#336633", // Slightly lighter dark green
-          200: "#669966", // Even lighter dark green
+          DEFAULT: "#000",
+          100: "#1E1E2D",
+          200: "#232533",
         },
         gray: {
-          100: "#ccc", // Light gray for borders and backgrounds
+          100: "#CDCDE0",
         },
-        whitishGreen: "#f0fff0", // Whitish green color
       },
       fontFamily: {
-        // Your existing font families remain the same
         pthin: ["Poppins-Thin", "sans-serif"],
         pextralight: ["Poppins-ExtraLight", "sans-serif"],
         plight: ["Poppins-Light", "sans-serif"],
@@ -31,9 +29,6 @@ module.exports = {
         pbold: ["Poppins-Bold", "sans-serif"],
         pextrabold: ["Poppins-ExtraBold", "sans-serif"],
         pblack: ["Poppins-Black", "sans-serif"],
-        rearth: ["RegularEarth-lrrD", "sans-serif"],
-        rearthnos: ["RegularEarthNos-nKKV", "sans-serif"],
-        moonkids: ["MoonkidsPersonalUseExtbd-gxPZ3", "sans-serif"],
       },
     },
   },

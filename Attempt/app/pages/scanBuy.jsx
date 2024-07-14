@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
-import { Button } from 'react-native';
+
 const Page2 = () => {
   const [facing, setFacing] = useState('back');
-
   const [scanned, setScanned] = useState(false);
+  const [ansString, setAnsString] = useState('');
 
   useEffect(() => {
-
+    // Any necessary initialization or cleanup code can go here
   }, []);
 
-
-  function toggleCameraFacing() {
+  const toggleCameraFacing = () => {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
   };
 
+  
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    const ansArray = data.split('?');
+    setAnsString(ansArray.join(' ')); // Set the state variable
+    // alert(ansArray);
   };
+
 
   return (
     <View style={styles.container}>
@@ -34,9 +38,10 @@ const Page2 = () => {
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
     </View>
+
+    
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
