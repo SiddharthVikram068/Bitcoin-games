@@ -40,6 +40,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.6",
     "expo-web-browser": "~13.0.3",
+    "lottie-react-native": "^6.7.2",
     "nativewind": "^2.0.11",
     "qrcode": "1.5.3",
     "react": "18.2.0",
