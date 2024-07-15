@@ -2,18 +2,25 @@ import React, { useEffect, useRef } from "react";
 import { StyleSheet, View, Text, Animated } from "react-native";
 import LottieView from 'lottie-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
+// import AppLoading from 'expo-app-loading';
 import { router } from 'expo-router'; // Assuming 'router' is correctly imported
 
 const HomePage = () => {
+  const [fontsLoaded] = useFonts({
+    'Blacknorthdemo-mLE25': require('../assets/fonts/Blacknorthdemo-mLE25.otf'),
+  });
+
   const positions = useRef([0, 1, 2, 3, 4].map(() => new Animated.Value(100))).current;
   const glowAnimation = useRef(new Animated.Value(0)).current;
+
 
   useEffect(() => {
     const animateText = () => {
       Animated.stagger(100, positions.map(pos =>
         Animated.timing(pos, {
           toValue: 0,
-          duration: 800,
+          duration: 900,
           useNativeDriver: true,
         })
       )).start();
@@ -39,7 +46,7 @@ const HomePage = () => {
 
   return (
     <LinearGradient
-      colors={['#623421', '#554272']}
+      colors={['#000000', '#012ac0']}
       style={styles.container}
     >
       <LottieView 
@@ -79,14 +86,16 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     marginTop: 50,
+    fontFamily: 'Blacknorthdemo-mLE25',
   },
   text: {
     fontSize: 44,
-    fontWeight: "bold",
-    fontFamily: "MoonkidsPersonalUseExtbd-gxPZ3",
-    color: "#FFD700", // Updated glow color to yellow
-    textShadowColor: "#FFD700",
-    textShadowRadius: 10,
+    fontWeight: 'bold',
+    fontFamily: 'Blacknorthdemo-mLE25', // Correctly apply the custom font
+    color: "#00f0f0", // Updated glow color to yellow
+    textShadowColor: "#0000f0",
+    textShadowRadius: 15,
+    // letterSpacing: 5,
   },
 });
 
