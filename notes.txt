@@ -14,4 +14,5 @@ account2(buyer) - 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, tanish
 
 functions for frontend
 registerOwner -> to be done after metamask connects 
-buyManyProducts ->does 
+buyManyProducts ->does a function call to metamask to buy products
+verifyOwner -> buy section has a verify option to verify the owner of the product

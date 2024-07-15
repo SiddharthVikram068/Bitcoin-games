@@ -3,6 +3,8 @@ import { View, StyleSheet, Button } from 'react-native';
 import { CameraView } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {Transaction,contactAddress} from '../../config';
+
 const Page5 = ({ onScan }) => {
   const [facing, setFacing] = useState('back');
   const [scanned, setScanned] = useState(false);
