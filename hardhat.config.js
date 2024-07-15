@@ -3,6 +3,7 @@ const fs = require('fs');
 require('solidity-coverage');
 require('@nomiclabs/hardhat-waffle');
 
+
 /*
 Issue the following command to generate a BIP-39 seed phrase
 and save it to file:
