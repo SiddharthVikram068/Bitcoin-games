@@ -34,7 +34,7 @@ const HomePage = () => {
 
     const timer = setTimeout(() => {
       router.replace('/sign-in');
-    }, 6000);
+    }, 7400);
 
     animateText();
 

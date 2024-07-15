@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
-import Tab2 from '../components/TabBarBuy';
+import Tab2 from '../components/TabBarSell';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
