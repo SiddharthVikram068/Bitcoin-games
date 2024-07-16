@@ -55,7 +55,7 @@ const Page6 = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <LinearGradient
-      colors={['#06498F', '#1D2671']}
+      colors={['#0f0c29', '#0f0c29']}
       style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.title}>Order Details</Text>

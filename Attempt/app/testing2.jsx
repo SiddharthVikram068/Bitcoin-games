@@ -49,7 +49,7 @@ const App2 = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: '#06498F',
+    backgroundColor: '#0f0c29',
   },
 });
 

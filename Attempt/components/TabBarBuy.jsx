@@ -35,7 +35,7 @@ const Tab1 = () => {
           borderWidth: 0, // Set the border width to make it visible
         },
         tabBarLabelStyle: {
-          color: '0f0029', // White text color for the labels
+          color: 'white', // White text color for the labels
         },
         headerShown: false, // Hide the header for all screens
       })}

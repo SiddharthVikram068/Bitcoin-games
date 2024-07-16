@@ -26,7 +26,7 @@ const Tab2 = () => {
           return <Image source={iconName} style={{ width: size, height: size, tintColor: color }} />;
         },
         tabBarStyle: {
-          backgroundColor: '#1D2671', // Dark blue color for the tab bar
+          backgroundColor: '#0f0029', // Dark blue color for the tab bar
           borderTopWidth: 0, // Remove top border
           elevation: 0,
         },

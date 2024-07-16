@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop:50,
   },
+
+  
   radioOuterCircle: {
     height: 20,
     width: 20,

@@ -7,7 +7,7 @@ import {Transaction,contactAddress} from '../../config';
 const Page4 = () => {
   return (
     <LinearGradient
-      colors={['#06498F', '#1D2671']}
+      colors={['#0f0c29', '#0f0c29']}
       style={{ flex: 1 }}>
     <View>
       <Text>Page4</Text>

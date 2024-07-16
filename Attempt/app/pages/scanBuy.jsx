@@ -47,7 +47,7 @@ const Page2 = () => {
 
   return (
     <LinearGradient
-      colors={['#06498F', '#1D2671']}
+      colors={['#0f0c29', '#0f0c29']}
       style={{ flex: 1 }}>
     <View style={styles.container}>
       <CameraView

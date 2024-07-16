@@ -1,18 +1,57 @@
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Home } from "../(tabs)/home";
 import App1 from '../testing1';
 import App2 from '../testing2';
-import { Stack } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { logout } from "../../lib/appwrite";
+import { useWalletConnectModal } from "@walletconnect/modal-react-native";
+import { Alert, View, StyleSheet } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
+  const { user, setUser, setIsLogged } = useGlobalContext();
+  const { isConnected, provider } = useWalletConnectModal();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      setIsLogged(false);
+      Alert.alert("Success", "You have been logged out");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
+  };
+
+  const handleDisconnect = async () => {
+    try {
+      await provider?.disconnect();
+      Alert.alert("Success", "You have been disconnected");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
+  };
+
   return (
-    <DrawerContentScrollView {...props} style={styles.drawerContent}>
-      <DrawerItemList {...props} />
+    <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContent}>
+      <View style={styles.drawerItemListContainer}>
+        <DrawerItemList {...props} />
+      </View>
+      <View style={styles.bottomDrawerSection}>
+        <DrawerItem
+          label="Logout"
+          labelStyle={{ color: 'white' }}
+          onPress={handleLogout}
+        />
+        <DrawerItem
+          label="Disconnect"
+          labelStyle={{ color: 'white' }}
+          onPress={handleDisconnect}
+        />
+      </View>
     </DrawerContentScrollView>
   );
 }
@@ -61,7 +100,14 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   drawerContent: {
-    backgroundColor: '#0f0c29',
-    // Dark blue background for drawer content
+    flex: 1,
+    backgroundColor: '#0f0c29', // Dark blue background for drawer content
+    justifyContent: 'space-between',
+  },
+  drawerItemListContainer: {
+    flex: 1,
+  },
+  bottomDrawerSection: {
+    marginBottom: 15,
   },
 });
