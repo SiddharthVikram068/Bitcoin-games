@@ -23,30 +23,31 @@ const Tab1 = () => {
             iconName = icons.verify;
           }
 
-          // You can return any component that you like here!
           return <Image source={iconName} style={{ width: size, height: size, tintColor: color }} />;
         },
+        tabBarStyle: {
+          backgroundColor: '#1D2671', // Dark blue color for the tab bar
+          borderTopWidth: 0, // Remove top border
+          elevation: 0,
+        },
+        tabBarLabelStyle: {
+          color: 'white', // White text color for the labels
+        },
+        headerShown: false, // Hide the header for all screens
       })}
     >
-      <Tab.Screen name="Home" options={
-        {
-
-          
-headerShown: false 
-}
-      } component={Page1} />
-      <Tab.Screen name="Scan" options={
-        {
-
-headerShown: false 
-}
-      } component={Page2} />
-      <Tab.Screen name="Verify"  options={
-        {
-
-headerShown: false 
-}
-      }component={Page3} />
+      <Tab.Screen 
+        name="Home" 
+        component={Page1} 
+      />
+      <Tab.Screen 
+        name="Scan" 
+        component={Page2} 
+      />
+      <Tab.Screen 
+        name="Verify" 
+        component={Page3} 
+      />
     </Tab.Navigator>
   );
 };

@@ -39,7 +39,7 @@ const App2 = () => {
           onPress={handleWalletConnection}
           label={isConnectedState ? "Disconnect Wallet" : "Connect Wallet"}
         />
-        {isConnectedState && <Text>Connected: {address}</Text>}
+        {/* {isConnectedState && <Text>Connected: {address}</Text>} */}
       </View>
       <Tab2 />
     </View>

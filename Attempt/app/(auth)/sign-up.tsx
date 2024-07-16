@@ -76,7 +76,7 @@ const SignUp = () => {
 
     return (
         <LinearGradient
-            colors={['#C33764', '#1D2671']}
+            colors={['#06498F', '#1D2671']}
             style={styles.container}
         >
             <ScrollView contentContainerStyle={styles.scrollView}>

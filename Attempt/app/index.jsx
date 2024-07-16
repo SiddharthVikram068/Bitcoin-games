@@ -10,10 +10,6 @@ import { router } from 'expo-router'; // Assuming 'router' is correctly imported
 
 
 const HomePage = () => {
-  const [fontsLoaded] = useFonts({
-    'Blacknorthdemo-mLE25': require('../assets/fonts/Blacknorthdemo-mLE25.otf'),
-  });
-
   const positions = useRef([0, 1, 2, 3, 4].map(() => new Animated.Value(100))).current;
   const glowAnimation = useRef(new Animated.Value(0)).current;
 
@@ -23,14 +19,14 @@ const HomePage = () => {
       Animated.stagger(100, positions.map(pos =>
         Animated.timing(pos, {
           toValue: 0,
-          duration: 900,
+          duration: 2000,
           useNativeDriver: true,
         })
       )).start();
 
       Animated.timing(glowAnimation, {
         toValue: 1,
-        duration: 1500,
+        duration: 4500,
         useNativeDriver: true,
       }).start();
     };
@@ -49,7 +45,7 @@ const HomePage = () => {
 
   return (
     <LinearGradient
-      colors={['#C33764', '#1D2671']}
+      colors={['#06498F', '#1D2671']}
       style={styles.container}
     >
       <LottieView 
@@ -89,12 +85,12 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     marginTop: 50,
-    fontFamily: 'Blacknorthdemo-mLE25',
+    fontFamily: 'Poppins-Bold',
   },
   text: {
     fontSize: 44,
     fontWeight: 'bold',
-    fontFamily: 'Blacknorthdemo-mLE25', // Correctly apply the custom font
+    fontFamily: 'Poppins-Bold', // Correctly apply the custom font
     color: "#00f0f0", // Updated glow color to yellow
     textShadowColor: "#0000f0",
     textShadowRadius: 15,

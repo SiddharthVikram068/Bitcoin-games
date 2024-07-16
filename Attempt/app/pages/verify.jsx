@@ -45,18 +45,25 @@ async function verifyOwner(ownerAddressString, productHash) {
 
 
 
-const Page3 = async () => { 
-  
-
-
-
-
-
+const Page3 = () => { 
   return (
-    <View>
-      <Text>page3</Text>
+    <View style ={styles.container}>
+      <Text style={styles.textStyles}>page3</Text>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    // padding: 20,
+    flex:1,
+    backgroundColor: '#1D2671',
+    // color:'white',
+  },
+  textStyles:{
+    color:'white',
+    fontSize:20,
+  },
+});
 
 export default Page3
