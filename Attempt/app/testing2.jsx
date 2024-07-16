@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Button, Text } from 'react-native';
+import React, {useState} from 'react';
+import { View, Button, Text,StyleSheet } from 'react-native';
 import Tab2 from '../components/TabBarSell';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
+import RadioButton from './RadioButton'; // Adjust the path as needed
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
@@ -16,28 +17,40 @@ const providerMetadata = {
   },
 };
 
-const App1 = () => {
+const App2 = () => {
   const { open, isConnected, address, provider } = useWalletConnectModal();
+  const [isConnectedState, setIsConnectedState] = useState(isConnected);
 
   const handleWalletConnection = async () => {
-    if (isConnected) {
-      return provider?.disconnect();
+    if (isConnectedState) {
+      await provider?.disconnect();
+      setIsConnectedState(false);
+    } else {
+      await open();
+      setIsConnectedState(true);
     }
-    return open();
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ padding: 20 }}>
-        <Button
-          title={isConnected ? "Disconnect Wallet" : "Connect Wallet"}
+      <View style={styles.container}>
+        <RadioButton
+          selected={isConnectedState}
           onPress={handleWalletConnection}
+          label={isConnectedState ? "Disconnect Wallet" : "Connect Wallet"}
         />
-        {isConnected && <Text>Connected: {address}</Text>}
+        {isConnectedState && <Text>Connected: {address}</Text>}
       </View>
       <Tab2 />
     </View>
   );
 };
 
-export default App1;
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+});
+
+
+export default App2;
