@@ -6,6 +6,9 @@ import { useFonts } from 'expo-font';
 // import AppLoading from 'expo-app-loading';
 import { router } from 'expo-router'; // Assuming 'router' is correctly imported
 
+
+
+
 const HomePage = () => {
   const [fontsLoaded] = useFonts({
     'Blacknorthdemo-mLE25': require('../assets/fonts/Blacknorthdemo-mLE25.otf'),
@@ -34,7 +37,7 @@ const HomePage = () => {
 
     const timer = setTimeout(() => {
       router.replace('/sign-in');
-    }, 6000);
+    }, 6500);
 
     animateText();
 

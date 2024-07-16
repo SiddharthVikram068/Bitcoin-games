@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 
+import {Transaction,contactAddress} from '../../config';
 
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);

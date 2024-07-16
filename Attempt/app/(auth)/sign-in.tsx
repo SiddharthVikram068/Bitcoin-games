@@ -125,6 +125,7 @@ const SignIn = () => {
             containerStyles="mt-7 bg-gray-350"
             isLoading={isSubmitting}
           />
+
           <Button title="Go home" onPress={() => router.replace("../main_home")} />
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>

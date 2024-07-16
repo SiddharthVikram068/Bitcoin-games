@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
 import { ethers } from 'ethers';
 
+import {Transaction,contactAddress} from '../../config';
 
 const Page2 = () => {
   const [facing, setFacing] = useState('back');

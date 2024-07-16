@@ -3,6 +3,7 @@ const fs = require('fs');
 require('solidity-coverage');
 require('@nomiclabs/hardhat-waffle');
 
+
 /*
 Issue the following command to generate a BIP-39 seed phrase
 and save it to file:
@@ -88,7 +89,7 @@ const rskTestnetNetworkConfig =
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: '0.8.7',
+  solidity: '0.8.20',
   defaultNetwork: 'hardhat',
   networks: {
     hardhat: {},
