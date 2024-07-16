@@ -31,6 +31,7 @@ const Tab1 = () => {
       <Tab.Screen name="Home" options={
         {
 
+          
 headerShown: false 
 }
       } component={Page1} />

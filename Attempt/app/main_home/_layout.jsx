@@ -1,47 +1,66 @@
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import {Home} from"../(tabs)/home"
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { Home } from "../(tabs)/home";
 import App1 from '../testing1';
 import App2 from '../testing2';
-
-import { Stack, SplashScreen } from 'expo-router';
- // Import a separate component
+import { Stack } from 'expo-router';
+import { View, StyleSheet } from 'react-native';
 
 const Drawer = createDrawerNavigator();
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props} style={styles.drawerContent}>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
 
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-         <Stack>
-         <Stack.Screen name="App1" options={{ headerShown: false }} />
-         </Stack>
-      <Drawer.Navigator initialRouteName="TestingFinal">
-      <Drawer.Screen
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={props => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#333', // Dark blue color for the menu bar
+          },
+          drawerLabelStyle: {
+            color: 'white', // Change text color
+          },
+          headerShown: false, // Hide the default header
+        }}
+      >
+        <Drawer.Screen
           name="Home"
           component={Home}
           options={{
-            drawerLabel: 'Home ',
-            // title: 'Overview 1',
+            drawerLabel: 'Home',
           }}
         />
         <Drawer.Screen
           name="Buy"
           component={App1}
           options={{
-            drawerLabel: 'Buy ',
-            // title: 'Overview 1',
+            drawerLabel: 'Buy',
           }}
         />
         <Drawer.Screen
           name="Sell"
           component={App2}
           options={{
-            drawerLabel: 'Sell ',
-            // title: 'Overview 2',
+            drawerLabel: 'Sell',
           }}
         />
       </Drawer.Navigator>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  drawerContent: {
+    backgroundColor: '#1D2671', // Dark blue background for drawer content
+  },
+});

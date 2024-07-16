@@ -15,6 +15,7 @@ const abi = TransactionABI;
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
+
 const providerMetadata = {
   name: "YOUR_PROJECT_NAME",
   description: "YOUR_PROJECT_DESCRIPTION",
@@ -25,6 +26,8 @@ const providerMetadata = {
     universal: "YOUR_APP_UNIVERSAL_LINK.com",
   },
 };
+
+
 
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
@@ -51,7 +54,7 @@ export const Home = () => {
       //   console.error('Incorrect network, please switch to RSK testnet');
       //   return;
       // }
-
+      
 
       const signer = ethersProvider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, signer);
@@ -68,8 +71,8 @@ export const Home = () => {
     const { contract } = await setupProvider();
     console.log('Contract:', contract);
 
-    const ownerAddress = "0x51fB6Ed817c0Ff91E41F65aDdDcd3703cf39e306";
-    const name = 'Tanish';
+    const ownerAddress = address;
+    const name = 'Hemang';
 
     try {
       // const tx = contract.registerOwner(address, name);
@@ -127,7 +130,8 @@ export const Home = () => {
     </View>
     </LinearGradient>
   );
-};
+}
+
 
 const styles = StyleSheet.create({
   container: {
