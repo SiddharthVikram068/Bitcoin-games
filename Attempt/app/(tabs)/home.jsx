@@ -47,10 +47,10 @@ export const Home = () => {
       const ethersProvider = new ethers.providers.Web3Provider(provider);
       const network = await ethersProvider.getNetwork();
 
-      if (network.chainId !== 31) { // RSK testnet id
-        console.error('Incorrect network, please switch to RSK testnet');
-        return;
-      }
+      // if (network.chainId !== 31) { // RSK testnet id
+      //   console.error('Incorrect network, please switch to RSK testnet');
+      //   return;
+      // }
 
       const signer = ethersProvider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, signer);
