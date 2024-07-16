@@ -48,7 +48,8 @@ const App2 = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
+    backgroundColor: '#06498F',
   },
 });
 

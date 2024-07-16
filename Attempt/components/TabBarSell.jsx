@@ -27,6 +27,8 @@ const Tab2 = () => {
         },
         tabBarStyle: {
           backgroundColor: '#1D2671', // Dark blue color for the tab bar
+          borderTopWidth: 0, // Remove top border
+          elevation: 0,
         },
         tabBarLabelStyle: {
           color: 'white', // White text color for the labels

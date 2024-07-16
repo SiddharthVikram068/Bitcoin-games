@@ -61,6 +61,7 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   drawerContent: {
-    backgroundColor: '#1D2671', // Dark blue background for drawer content
+    backgroundColor: '#0f0c29',
+    // Dark blue background for drawer content
   },
 });

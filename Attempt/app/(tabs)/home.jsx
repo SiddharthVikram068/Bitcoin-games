@@ -81,7 +81,7 @@ export const Home = () => {
 
   return (
     <LinearGradient
-      colors={['#06498F', '#1D2671']}
+      colors={['#0f0c29', '#0f0c29']}
       style={styles.container}
     >
       <View style={styles.container}>

@@ -26,12 +26,16 @@ const Tab1 = () => {
           return <Image source={iconName} style={{ width: size, height: size, tintColor: color }} />;
         },
         tabBarStyle: {
-          backgroundColor: '#1D2671', // Dark blue color for the tab bar
+          backgroundColor: '#0f0029', // Dark blue color for the tab bar
           borderTopWidth: 0, // Remove top border
           elevation: 0,
+          borderRadius: 0,
+          
+          borderColor: '0f0029', // Change the outer radius color to black
+          borderWidth: 0, // Set the border width to make it visible
         },
         tabBarLabelStyle: {
-          color: 'white', // White text color for the labels
+          color: '0f0029', // White text color for the labels
         },
         headerShown: false, // Hide the header for all screens
       })}

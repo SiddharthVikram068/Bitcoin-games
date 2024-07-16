@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
+    marginTop:50,
   },
   radioOuterCircle: {
     height: 20,
@@ -23,15 +24,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
+    color:'white',
   },
   radioInnerCircle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#000',
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    color:'white',
   },
   radioText: {
     fontSize: 16,
+    color:'white',
   },
 });
 

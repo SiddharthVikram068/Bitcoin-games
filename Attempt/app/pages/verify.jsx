@@ -2,6 +2,7 @@ import { View, Text, ScrollView, RefreshControl, StyleSheet, Linking } from 'rea
 import { ethers } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {Transaction,contactAddress} from '../../config';
 
@@ -47,9 +48,13 @@ async function verifyOwner(ownerAddressString, productHash) {
 
 const Page3 = () => { 
   return (
+    <LinearGradient
+      colors={['#06498F', '#1D2671']}
+      style={{ flex: 1 }}>
     <View style ={styles.container}>
       <Text style={styles.textStyles}>page3</Text>
     </View>
+    </LinearGradient>
   )
 }
 
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     // padding: 20,
     flex:1,
-    backgroundColor: '#1D2671',
+    // backgroundColor: '#1D2671',
     // color:'white',
   },
   textStyles:{

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
-import {Transaction,contactAddress} from '../../config';
+import { Transaction, contactAddress } from '../../config';
 
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);
@@ -17,9 +18,7 @@ const Page6 = () => {
   }, []);
 
   useEffect(() => {
-    // Update the concatenatedData whenever scannedData changes
     setConcatenatedData(scannedData.join('?'));
-    // Calculate the total price
     const total = scannedData.reduce((sum, data) => {
       const [price] = data.split('_');
       return sum + parseInt(price, 10);
@@ -33,7 +32,6 @@ const Page6 = () => {
       const value = await AsyncStorage.getItem(storageKey);
       
       if (value !== null) {
-        // Value was found, set it in the state
         setScannedData(JSON.parse(value));
       } else {
         console.log('No scanned data found');
@@ -47,7 +45,7 @@ const Page6 = () => {
     try {
       const storageKey = '@scanned_data';
       await AsyncStorage.removeItem(storageKey);
-      setScannedData([]); // Clear the state as well
+      setScannedData([]);
       console.log('Scanned data cleared');
     } catch (e) {
       console.error('Failed to clear scanned data:', e);
@@ -55,79 +53,130 @@ const Page6 = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Page6</Text>
-      <Button title="Generate QR Code" onPress={retrieveScannedData} />
-      <View style={styles.listContainer}>
-        {concatenatedData ? (
-          <QRCode
-            value={concatenatedData}
-            size={200}
-            backgroundColor="white"
-            color="black"
-          />
-        ) : (
-          <Text>No scanned data available</Text>
-        )}
-
-      </View>
-      <ScrollView style={styles.scrollContainer}>
-        {scannedData.map((data, index) => {
-          const [price, hash] = data.split('_');
-          return (
-            <View key={index} style={styles.dataRow}>
-              <Text style={styles.dataItem}>{parseInt(price, 10)}</Text>
-              <Text style={styles.dataItem}>{hash}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <LinearGradient
+      colors={['#06498F', '#1D2671']}
+      style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Order Details</Text>
+        <ScrollView style={styles.scrollContainer}>
+          <View style={styles.table}>
+            <View style={styles.tableHeader}>
+              <Text style={styles.tableHeaderText}>Price</Text>
+              <Text style={styles.tableHeaderText}>Hash</Text>
             </View>
-          );
-        })}
-        <View style={styles.totalRow}>
-          <Text style={styles.totalText}>Total Price:</Text>
-          <Text style={styles.totalText}>{totalPrice}</Text>
+            {scannedData.map((data, index) => {
+              const [price, hash] = data.split('_');
+              return (
+                <View key={index} style={styles.tableRow}>
+                  <Text style={styles.tableCell}>{parseInt(price, 10)}</Text>
+                  <Text style={styles.tableCell}>{hash}</Text>
+                </View>
+              );
+            })}
+            <View style={styles.tableFooter}>
+              <Text style={styles.totalText}>Total Price:</Text>
+              <Text style={styles.totalText}>{totalPrice}</Text>
+            </View>
+          </View>
+          <View style={styles.qrCodeContainer}>
+            {concatenatedData ? (
+              <QRCode
+                value={concatenatedData}
+                size={200}
+                backgroundColor="white"
+                color="black"
+              />
+            ) : (
+              <Text style={styles.noDataText}>No scanned data available</Text>
+            )}
+          </View>
+        </ScrollView>
+        <View style={styles.buttonContainer}>
+          <Button title="Generate QR Code" onPress={retrieveScannedData} />
+          <Button title="Take New Order" onPress={clearScannedData} />
         </View>
-      </ScrollView>
-      <Button title="Take New Order" onPress={clearScannedData} />
-      {/* <Text>{isConnected ? 'Wallet is connected' : 'Wallet is not connected'}</Text>
-      {isConnected && <Text>Address: {address}</Text>} */}
-    </View>
+      </View>
+      </LinearGradient>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#1D2671',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
   },
-  listContainer: {
-    marginTop: 20,
-    width: '100%',
-    alignItems: 'center',
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 20,
   },
   scrollContainer: {
-    marginTop: 20,
+    flex: 1,
     width: '100%',
   },
-  dataRow: {
+  table: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: 'white',
+  },
+  tableHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    backgroundColor: '#333',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
-  dataItem: {
-    fontSize: 16,
-  },
-  totalRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#000',
-  },
-  totalText: {
+  tableHeaderText: {
+    flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  tableRow: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+  },
+  tableCell: {
+    flex: 1,
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+  },
+  tableFooter: {
+    flexDirection: 'row',
+    padding: 10,
+    backgroundColor: '#333',
+  },
+  totalText: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  qrCodeContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  noDataText: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 });
 

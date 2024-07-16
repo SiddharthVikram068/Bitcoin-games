@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Camera, CameraView } from 'expo-camera';
 import { ethers } from 'ethers';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import {Transaction,contactAddress} from '../../config';
 
@@ -45,6 +46,9 @@ const Page2 = () => {
   
 
   return (
+    <LinearGradient
+      colors={['#06498F', '#1D2671']}
+      style={{ flex: 1 }}>
     <View style={styles.container}>
       <CameraView
         onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -57,6 +61,7 @@ const Page2 = () => {
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
     </View>
+    </LinearGradient>
 
     
   );
