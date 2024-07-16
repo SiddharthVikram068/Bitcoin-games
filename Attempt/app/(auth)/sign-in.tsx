@@ -71,7 +71,7 @@ const SignIn = () => {
 
   return (
     <LinearGradient
-  colors={['#000000', '#012ac0']}
+  colors={['#C33764', '#1D2671']}
   style={{ flex: 1 }}
 >
       <ScrollView contentContainerStyle={styles.scrollView}>

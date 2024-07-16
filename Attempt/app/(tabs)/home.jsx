@@ -2,7 +2,7 @@ import { View, Text, Button, StyleSheet, Alert, Pressable } from 'react-native';
 import React, { useEffect, useCallback } from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
-
+import { LinearGradient } from 'expo-linear-gradient';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import { Link } from 'expo-router';
 import { ethers } from 'ethers';
@@ -52,6 +52,7 @@ export const Home = () => {
       //   return;
       // }
 
+
       const signer = ethersProvider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, signer);
       console.log('Signer:', signer);
@@ -91,6 +92,10 @@ export const Home = () => {
 
 
   return (
+    <LinearGradient
+      colors={['#A33764', '#1D2671']}
+      style={styles.container}
+    >
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
       {user && (
@@ -120,6 +125,7 @@ export const Home = () => {
         providerMetadata={providerMetadata}
       />
     </View>
+    </LinearGradient>
   );
 };
 
@@ -130,8 +136,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
+    
     fontSize: 20,
     marginBottom: 20,
+    // color:'black',cc
+    // fontStyle:
+    // fontColor:'white',
   },
   userInfo: {
     marginBottom: 20,
