@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-
-import { Transaction, contactAddress } from '../../config';
+import { Table, TableWrapper, Row, Rows } from 'react-native-table-component';
+import { icons } from '../../constants';
 
 const Page6 = () => {
   const [scannedData, setScannedData] = useState([]);
   const [concatenatedData, setConcatenatedData] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const { open, isConnected, address, provider } = useWalletConnectModal();
+  const [showOnlyQRCode, setShowOnlyQRCode] = useState(false);
 
   useEffect(() => {
     retrieveScannedData();
   }, []);
-  
 
   useEffect(() => {
     setConcatenatedData(scannedData.join('?'));
@@ -31,7 +31,6 @@ const Page6 = () => {
     try {
       const storageKey = '@scanned_data';
       const value = await AsyncStorage.getItem(storageKey);
-      
       if (value !== null) {
         setScannedData(JSON.parse(value));
       } else {
@@ -53,51 +52,68 @@ const Page6 = () => {
     }
   };
 
+  const handleQRCodePress = () => {
+    setShowOnlyQRCode(true);
+    clearScannedData();
+    setConcatenatedData('');
+    setTotalPrice(0);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
-      <LinearGradient
-      colors={['#0f0c29', '#0f0c29']}
-      style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Order Details</Text>
-        <ScrollView style={styles.scrollContainer}>
-          <View style={styles.table}>
-            <View style={styles.tableHeader}>
-              <Text style={styles.tableHeaderText}>Price</Text>
-              <Text style={styles.tableHeaderText}>Hash</Text>
-            </View>
-            {scannedData.map((data, index) => {
-              const [price, hash] = data.split('_');
-              return (
-                <View key={index} style={styles.tableRow}>
-                  <Text style={styles.tableCell}>{parseInt(price, 10)}</Text>
-                  <Text style={styles.tableCell}>{hash}</Text>
-                </View>
-              );
-            })}
-            <View style={styles.tableFooter}>
-              <Text style={styles.totalText}>Total Price:</Text>
-              <Text style={styles.totalText}>{totalPrice}</Text>
-            </View>
-          </View>
+      <LinearGradient colors={['#0f0c29', '#0f0c29']} style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Order Details</Text>
+          {!showOnlyQRCode && (
+            <ScrollView style={styles.scrollContainer}>
+              <View style={styles.tableContainer}>
+                <Table borderStyle={{ borderWidth: 1, borderColor: 'white' }}>
+                  <Row data={['Price', 'Hash']} style={styles.tableHeader} textStyle={styles.tableHeaderText} />
+                  {scannedData.map((data, index) => {
+                    const [price, hash] = data.split('_');
+                    return (
+                      <Row
+                        key={index}
+                        data={[parseInt(price, 10), hash]}
+                        textStyle={styles.tableCellText}
+                      />
+                    );
+                  })}
+                  <Row
+                    data={['Total Price', totalPrice]}
+                    style={styles.tableFooter}
+                    textStyle={styles.tableFooterText}
+                  />
+                </Table>
+              </View>
+            </ScrollView>
+          )}
           <View style={styles.qrCodeContainer}>
             {concatenatedData ? (
-              <QRCode
-                value={concatenatedData}
-                size={200}
-                backgroundColor="white"
-                color="black"
-              />
+              <TouchableOpacity onPress={handleQRCodePress} style={styles.qrCodeTouchable}>
+                <QRCode
+                  value={concatenatedData}
+                  size={200}
+                  backgroundColor="white"
+                  color="black"
+                />
+              </TouchableOpacity>
             ) : (
               <Text style={styles.noDataText}>No scanned data available</Text>
             )}
           </View>
-        </ScrollView>
-        <View style={styles.buttonContainer}>
-          <Button title="Generate QR Code" onPress={retrieveScannedData} />
-          <Button title="Take New Order" onPress={clearScannedData} />
+          {!showOnlyQRCode && (
+            <View style={styles.iconContainer}>
+              <TouchableOpacity onPress={retrieveScannedData}>
+                <Image source={icons.qr} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={clearScannedData}>
+                <Image source={icons.plus} style={styles.icon} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
-      </View>
+
       </LinearGradient>
     </SafeAreaView>
   );
@@ -123,42 +139,31 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
-  table: {
+  tableContainer: {
     width: '100%',
-    borderWidth: 1,
-    borderColor: 'white',
+    backgroundColor: '#0f0c29',
   },
   tableHeader: {
-    flexDirection: 'row',
+    height: 40,
     backgroundColor: '#333',
-    padding: 10,
   },
   tableHeaderText: {
-    flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center',
   },
-  tableRow: {
-    flexDirection: 'row',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-  },
-  tableCell: {
-    flex: 1,
+  tableCellText: {
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
+    padding: 10,
   },
   tableFooter: {
-    flexDirection: 'row',
-    padding: 10,
+    height: 40,
     backgroundColor: '#333',
   },
-  totalText: {
-    flex: 1,
+  tableFooterText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
@@ -168,16 +173,28 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
   },
+  qrCodeTouchable: {
+    borderRadius: 15,
+    padding: 10,
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 2,
+  },
   noDataText: {
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
   },
-  buttonContainer: {
+  iconContainer: {
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+  },
+  icon: {
+    width: 50,
+    height: 50,
+    marginHorizontal: 10,
   },
 });
 
