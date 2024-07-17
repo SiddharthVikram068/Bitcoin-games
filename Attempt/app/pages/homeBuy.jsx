@@ -61,56 +61,65 @@ const NewsList = () => {
   }
 
   return (
-    <FlatList
-      data={news}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item, index }) => (
-        <NewsItem imageUrl={item.urlToImage} title={item.title} url={item.url} />
-      )}
-      contentContainerStyle={styles.listContainer}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-      onEndReached={onLoadMore}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
-    />
+    <View style={styles.container}>
+      <Text style={styles.heading}>Web3 News</Text>
+      <FlatList
+        data={news}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <NewsItem imageUrl={item.urlToImage} title={item.title} url={item.url} />
+        )}
+        contentContainerStyle={styles.listContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0f0029',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 10,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#0f0029',
+    backgroundColor: '#0f0029',
   },
   listContainer: {
     padding: 0,
-    marginTop:0,
-    backgroundColor:'#0f0029',
-    // color:'white',
+    marginTop: 10,
   },
   newsItem: {
-    backgroundColor: '#0f0029',
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-    flexDirection: 'column',
-    alignItems: 'center',
-
+    backgroundColor: '#1a1a2e',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
   },
   newsImage: {
-    width: 200,
+    width: '100%',
     height: 200,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 10,
   },
   newsTitle: {
-    fontSize: 20,
-    color: 'white',
-    textAlign: 'justify-center',
-
+    fontSize: 18,
+    color: '#ffffff',
+    marginBottom: 10,
   },
 });
 

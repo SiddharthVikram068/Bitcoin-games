@@ -107,7 +107,7 @@ const Page3 = () => {
               value={input
              }
             />
-            <Button title="Submit" onPress={handleSubmit} />
+            <Button style={styles.but} title="Submit" onPress={handleSubmit} />
           </>
         ) : (
           <>
@@ -164,6 +164,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
+  },
+  but: {
+    backgroundColor: '#0f0c29',
+    borderRadius: 20,
+    padding: 10,
+    paddingHorizontal: 20,
+    marginVertical: 20,
   },
 });
 
