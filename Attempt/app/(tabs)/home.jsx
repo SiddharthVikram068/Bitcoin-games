@@ -1,5 +1,5 @@
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
-import React, { useEffect, useCallback } from 'react';
+import { View, Text, ScrollView, StyleSheet, Alert, Button, TextInput, Animated } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -28,6 +28,10 @@ export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
   
+  // const [ownerAddress, setOwnerAddress] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [price, setPrice] = useState('');
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -72,6 +76,29 @@ export const Home = () => {
     }
   };
   
+  // const productRegistration = async (_ownerAddress, _description, _price) => {
+  //   const { contract } = await setupProvider();
+  //   console.log('Contract:', contract);
+
+  //   try {
+  //     const tx = await contract.registerProduct(_ownerAddress, _description, ethers.utils.parseUnits(_price, 'ether'));
+  //     await tx.wait();
+  //     console.log('Transaction:', tx);
+  //     Alert.alert('Product registered successfully', `Owner: ${_ownerAddress}`);
+  //   } catch (error) {
+  //     console.error('Error registering product:', error);
+  //     Alert.alert('Error registering product');
+  //   }
+  // };
+
+  // const handleProductRegistration = () => {
+  //   if (!ownerAddress || !description || !price) {
+  //     Alert.alert('All fields are required');
+  //     return;
+  //   }
+  //   productRegistration(ownerAddress, description, price);
+  // };
+
   const handleWalletConnection = async () => {
     if (isConnected) {
       return provider?.disconnect();
@@ -96,6 +123,33 @@ export const Home = () => {
         <Button title="Logout" onPress={handleLogout} />
         <Text></Text>
         <Button title="Ether" onPress={testRegisterUser} />
+        
+        {/* <TextInput
+          style={styles.input}
+          placeholder="Owner Address"
+          value={ownerAddress}
+          onChangeText={setOwnerAddress}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Description"
+          value={description}
+          onChangeText={setDescription}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Price"
+          value={price}
+          onChangeText={setPrice}
+          keyboardType="numeric"
+        />
+        <Button
+          title="Register Product"
+          onPress={handleProductRegistration}
+        /> */}
+
+
+
         <Text style={styles.text}>{isConnected ? 'wallet is connected' : 'wallet is not connected'}</Text>
         <Text style={styles.text}>{isConnected ? 'contract address: ' + contractAddress : 'contract address: ' + 'no address'}</Text>
         <Text></Text>
@@ -135,6 +189,16 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'white', // Change link text color to white
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    padding: 10,
+    width: '80%',
+    color: 'white', // Change input text color to white
+    backgroundColor: 'white',
   },
 });
 

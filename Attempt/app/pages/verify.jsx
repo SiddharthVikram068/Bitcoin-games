@@ -3,6 +3,8 @@ import { ethers } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { CameraView } from 'expo-camera';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {Transaction,contactAddress} from '../../config';
 
@@ -19,34 +21,66 @@ const providerMetadata = {
   },
 };
 
-async function verifyOwner(ownerAddressString, productHash) {
-  try {
-    // Validate and convert string to address
-    if (!ethers.utils.isAddress(ownerAddressString)) {
-      throw new Error('Invalid address format');
-    }
-    const ownerAddress = ethers.utils.getAddress(ownerAddressString);
-
-    // Setup provider and contract
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contract = new ethers.Contract(contactAddress, Transaction, provider);
-
-    // Call verifyOwner function
-    const result = await contract.verifyOwner(ownerAddress, productHash);
-    return result;
-  } catch (error) {
-    console.error("Error verifying owner:", error);
-    throw error;
-  }
-}
-
-
-
-
-
-
 
 const Page3 = () => { 
+
+  const { user, setUser, setIsLogged } = useGlobalContext();
+  const { open, isConnected, address, provider } = useWalletConnectModal();
+
+  const setupProvider = useCallback(async () => {
+    if (provider) {
+      console.log('Provider:', provider);
+      const ethersProvider = new ethers.providers.Web3Provider(provider);
+      const network = await ethersProvider.getNetwork();
+
+      const signer = ethersProvider.getSigner();
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      console.log('Signer:', signer);
+      console.log('Contract Address:', contractAddress);
+      console.log('wallet address: ', address);
+
+      return { contract, signer };
+    }
+  }, [provider]);
+
+  const handleWalletConnection = async () => {
+    if (isConnected) {
+      return provider?.disconnect();
+    }
+    return open();
+  };
+
+  const handleBarCodeScanned = async ({ type, data }) => {
+    setScanned(true);
+    const storageKey = '@scanned_data';
+    let scannedList = await AsyncStorage.getItem(storageKey);
+    scannedList = scannedList ? JSON.parse(scannedList) : [];
+    scannedList.push(data);
+    await AsyncStorage.setItem(storageKey, JSON.stringify(scannedList));
+    // onScan(data);
+    const simpleData = data.split('_');
+    const price = simpleData[0];
+    const productHash = simpleData[1];
+    
+   
+     alert(`Bar code with type ${type}. \n price of the product is ${price} \n product hash is ${productHash}`);
+  };
+
+  const ownerVerification = async (_ownerAddress, _productHash) => {
+    const { contract } = await setupProvider();
+
+    const tx = await contract.verifyOwner(_ownerAddress, _productHash);
+    await tx.wait();
+    console.log('Transaction:', tx);
+
+
+
+
+  } 
+
+
+
+
   return (
     <LinearGradient
       colors={['#0f0c29', '#0f0c29']}
