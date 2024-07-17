@@ -108,12 +108,12 @@ const Page6 = () => {
                 <Image source={icons.qr} style={styles.icon} />
               </TouchableOpacity>
               <TouchableOpacity onPress={clearScannedData}>
-                <Image source={icons.sell} style={styles.icon} />
+                <Image source={icons.plus} style={styles.icon} />
               </TouchableOpacity>
             </View>
           )}
         </View>
-        
+
       </LinearGradient>
     </SafeAreaView>
   );
