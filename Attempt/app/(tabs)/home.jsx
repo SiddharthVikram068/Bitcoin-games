@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import { Link } from 'expo-router';
 import { ethers } from 'ethers';
-
+import ProfileIcon from "../ProfileIcon";
 import { TransactionABI, contractAddress } from '../../config.js';
 
 const abi = TransactionABI;
@@ -112,7 +112,9 @@ export const Home = () => {
       style={styles.container}
     >
       <View style={styles.container}>
+       
         <Text style={styles.heading}>Home</Text>
+        <ProfileIcon  onConnect={handleWalletConnection} onDisconnect={handleWalletConnection} onDetails={() => {}} />
         {user && (
           <View style={styles.userInfo}>
             <Text style={styles.userInfoText}>Email: {user.email}</Text>
