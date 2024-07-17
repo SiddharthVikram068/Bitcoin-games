@@ -112,7 +112,7 @@ export const Home = () => {
       style={styles.container}
     >
       <View style={styles.container}>
-        <Text style={styles.text}>Home</Text>
+        <Text style={styles.heading}>Home</Text>
         {user && (
           <View style={styles.userInfo}>
             <Text style={styles.userInfoText}>Email: {user.email}</Text>
@@ -120,41 +120,14 @@ export const Home = () => {
             <Text style={styles.userInfoText}>Account ID: {user.accountId}</Text>
           </View>
         )}
+        <Text style={styles.footerText}>Block, your one stop solution to everything</Text>
         <Button title="Logout" onPress={handleLogout} />
         <Text></Text>
-        <Button title="Ether" onPress={testRegisterUser} />
-        
-        {/* <TextInput
-          style={styles.input}
-          placeholder="Owner Address"
-          value={ownerAddress}
-          onChangeText={setOwnerAddress}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Price"
-          value={price}
-          onChangeText={setPrice}
-          keyboardType="numeric"
-        />
-        <Button
-          title="Register Product"
-          onPress={handleProductRegistration}
-        /> */}
-
+        <Button title="Register yourself" onPress={testRegisterUser} /> 
 
 
         <Text style={styles.text}>{isConnected ? 'wallet is connected' : 'wallet is not connected'}</Text>
-        <Text style={styles.text}>{isConnected ? 'contract address: ' + contractAddress : 'contract address: ' + 'no address'}</Text>
-        <Text></Text>
         <Link href="../(auth)/sign-in" style={styles.link}>Go To Sign In</Link>
-        <Text style={styles.text}>{isConnected ? address : "No Connected"}</Text>
         <Button
           onPress={handleWalletConnection}
           title={isConnected ? "Disconnect" : "Connect"}
@@ -175,6 +148,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: 'white',
+  },
   text: {
     fontSize: 20,
     marginBottom: 20,
@@ -182,9 +161,18 @@ const styles = StyleSheet.create({
   },
   userInfo: {
     marginBottom: 20,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+    marginBottom: 20,
+    width: '90%',
   },
   userInfoText: {
-    fontSize: 16,
+    fontSize: 18,
+    marginBottom: 10,
     color: 'white', // Change user info text color to white
   },
   link: {
@@ -199,6 +187,12 @@ const styles = StyleSheet.create({
     width: '80%',
     color: 'white', // Change input text color to white
     backgroundColor: 'white',
+  },
+  footerText: {
+    fontSize: 16,
+    fontStyle: 'italic',
+    color: '#666',
+    marginTop: 20,
   },
 });
 
