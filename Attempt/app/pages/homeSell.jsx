@@ -43,6 +43,7 @@ const HomeSelling = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
   const [ownerAddress, setOwnerAddress] = useState('');
+  const [description, setDescription] = useState('');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -62,10 +63,10 @@ const HomeSelling = () => {
       const products = await contract.getAllProductsByOwner(_ownerAddress);
       setProducts(products);
       console.log('Products:', products);
-      console.log('Price:' , products[0].price);
-      const priceBigNumber = BigNumber.from(products[0].price);
-      const priceDecimal = priceBigNumber.toString();
-      console.log(priceDecimal);
+      console.log('Price:' , BigNumber.from(products[0].price).toString());
+      // console.log('Price:' , BigNumber.from(products[1].price).toString());
+      // console.log('Price:' , BigNumber.from(products[2].price).toString());
+      // jitne bhi price ha, usko "BigNumber.from(products[0].price).toString()" access karo
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -78,6 +79,45 @@ const HomeSelling = () => {
       alert('Please enter an owner address');
     }
   };
+
+  const setForSale = async (_description) => {
+    try {
+      const { contract, signer } = await setupProvider();
+      const allProducts = await contract.getAllProductsByOwner(ownerAddress);
+      console.log('All Products:', allProducts);
+      //now we search in a loop the number of products the owner has, and match the product description with the input description
+      //then we get the product hash of that product and set it for sale
+      let _productHash = '';
+      for (let i = 0; i < allProducts.length; i++) {
+        if (allProducts[i].description === _description) {
+          _productHash = allProducts[i].productHash;
+          console.log('Product Hash:', _productHash);
+          break;
+        }
+      }
+      console.log('Product Hash:', _productHash);
+      if (!_productHash) {
+        alert('Product not found');
+        return;
+      }
+
+
+      const transaction = await contract.setProductForSale(_productHash);
+      console.log('Transaction:', transaction);
+    } catch (error) {
+      console.error('Error setting for sale:', error);
+    }
+  }
+
+  const handleSetForSale = (description) => {
+    if (description) {
+      setForSale(description);
+    } else {
+      alert('Please enter an owner address');
+    }
+  };
+
+
 
   return (
     <LinearGradient
@@ -99,6 +139,15 @@ const HomeSelling = () => {
             onChangeText={setOwnerAddress}
           />
           <Button title="Fetch Products" onPress={handleFetchProducts.bind(this, ownerAddress)} />
+
+
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Product Description"
+            value={description}
+            onChangeText={setDescription}
+          />
+          <Button title="Set Product For Sale" onPress={handleSetForSale.bind(this, description)} />
 
           {/* {loading ? (
             <Text style={styles.text}>Loading...</Text>
