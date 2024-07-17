@@ -1,31 +1,117 @@
-import { View, Text,StyleSheet } from 'react-native'
-import React from 'react'
-import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import {Transaction,contactAddress} from '../../config';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Linking, ActivityIndicator, Image, RefreshControl } from 'react-native';
 
-const Page1 = () => {
-  const { open, isConnected, address, provider } = useWalletConnectModal();
+const API_KEY = '51446685f8204d9ba351e99e93bd16d4';
+const NEWS_API_URL = `https://newsapi.org/v2/everything?q=Blockchain%20and%20Stocks&apiKey=${API_KEY}`;
+
+const NewsItem = ({ title, url, imageUrl, index }) => (
+  <TouchableOpacity style={styles.newsItem} onPress={() => Linking.openURL(url)}>
+    {index % 2 === 0 && imageUrl ? (
+      <Image source={{ uri: imageUrl }} style={styles.newsImage} />
+    ) : null}
+    <Text style={styles.newsTitle}>{title}</Text>
+    {index % 2 !== 0 && imageUrl ? (
+      <Image source={{ uri: imageUrl }} style={styles.newsImage} />
+    ) : null}
+  </TouchableOpacity>
+);
+
+const NewsList = () => {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async (pageNum = 1) => {
+    try {
+      const response = await fetch(`${NEWS_API_URL}&page=${pageNum}`);
+      const data = await response.json();
+      setNews(pageNum === 1 ? data.articles : [...news, ...data.articles]);
+      setLoading(false);
+      setRefreshing(false);
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setPage(1);
+    fetchNews(1);
+  };
+
+  const onLoadMore = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchNews(nextPage);
+  };
+
+  if (loading && page === 1) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
-    <LinearGradient
-      colors={['#0f0c29', '#0f0c29']}
-      style={{ flex: 1 }}>
-    <View style={styles.container}>
-      <Text style={styles.textStyles}>{isConnected ? 'something': 'not something'}</Text>
-    </View>
-    </LinearGradient>
-  )
-}
+    <FlatList
+      data={news}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item, index }) => (
+        <NewsItem imageUrl={item.urlToImage} title={item.title} url={item.url} />
+      )}
+      contentContainerStyle={styles.listContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      onEndReached={onLoadMore}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
+    />
+  );
+};
+
 const styles = StyleSheet.create({
-  container: {
-    // padding: 20,
-    flex:1,
-    // backgroundColor: '#1D2671',
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'#0f0029',
+  },
+  listContainer: {
+    padding: 0,
+    marginTop:0,
+    backgroundColor:'#0f0029',
     // color:'white',
   },
-  textStyles:{
-    color:'white',
-    fontSize:20,
+  newsItem: {
+    backgroundColor: '#0f0029',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    flexDirection: 'column',
+    alignItems: 'center',
+
+  },
+  newsImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  newsTitle: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'justify-center',
+
   },
 });
-export default Page1
+
+export default NewsList;

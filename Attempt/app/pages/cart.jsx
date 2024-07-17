@@ -16,6 +16,7 @@ const Page6 = () => {
   useEffect(() => {
     retrieveScannedData();
   }, []);
+  
 
   useEffect(() => {
     setConcatenatedData(scannedData.join('?'));

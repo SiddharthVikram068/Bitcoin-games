@@ -9,6 +9,7 @@ const ProfileIcon = ({ onConnect, onDisconnect, onDetails }) => {
     setDropdownVisible(!dropdownVisible);
   };
 
+  
   const handleOptionPress = (option) => {
     setDropdownVisible(false);
     switch (option) {
@@ -58,9 +59,9 @@ const ProfileIcon = ({ onConnect, onDisconnect, onDetails }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: 50,
-    right: -100,
+    position: 'relative',
+    // top: 50,
+    // right: -100,
     paddingRight: 15, // Adjust padding as needed
   },
   

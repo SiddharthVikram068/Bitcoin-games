@@ -107,18 +107,19 @@
 
 // export default Page3
 
-import { View, Text, TextInput, ScrollView, RefreshControl, StyleSheet, Linking } from 'react-native';
+import { View, Text, TextInput, ScrollView, RefreshControl, StyleSheet, Linking, Alert,Button } from 'react-native';
 import { ethers } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { CameraView } from 'expo-camera';
+import { Camera,CameraView } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useGlobalContext } from "../../context/GlobalProvider";
+// import { useGlobalContext } from "../../context/GlobalProvider";
 
-import {Transaction,contactAddress} from '../../config';
+import {TransactionABI,contractAddress} from '../../config';
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
+const abi = TransactionABI;
 
 const providerMetadata = {
   name: "YOUR_PROJECT_NAME",
@@ -134,7 +135,7 @@ const providerMetadata = {
 
 const Page3 = () => { 
 
-  const { user, setUser, setIsLogged } = useGlobalContext();
+  // const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
   const [facing, setFacing] = useState('back');
   const [scanned, setScanned] = useState(false);
@@ -162,6 +163,28 @@ const Page3 = () => {
     return open();
   };
 
+  const verifyProduct = async(ownerAddress, productHash) => {
+    const { contract } = await setupProvider();
+    console.log('Contract:', contract);
+
+    try {
+      const ans = await contract.verifyOwner(ownerAddress, productHash);
+      receipt = await tx.wait();
+      console.log('Transaction:', tx);
+    } catch(error) {
+      Alert.alert("Error", error.message);
+    }
+    if(ans == true){
+      Alert.alert("product belongs to the address");
+    }
+
+    else {
+      Alert.alert("product doesn't belong to the entered address");
+    }
+
+
+  }
+
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     const storageKey = '@scanned_data';
@@ -172,61 +195,39 @@ const Page3 = () => {
     const simpleData = data.split('_');
     const price = simpleData[0];
     const productHash = simpleData[1];
-    return ownerVerification(address, productHash);
+    const addressToVerify = prompt("Enter the address to verify the product for: ", "0x0");
+    verifyProduct(addressToVerify, productHash);
   };
-
-  const ownerVerification = async (_ownerAddress, _productHash) => {
-    const { contract } = await setupProvider();
-    const tx = await contract.verifyOwner(_ownerAddress, _productHash);
-    await tx.wait();
-    console.log('Transaction:', tx);
-  };
-
-  function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
-  }
 
   return (
     <LinearGradient
       colors={['#0f0c29', '#0f0c29']}
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-      {!isConnected && (
-        <Button title="Connect Wallet" onPress={open} />
+      style={{ flex: 1 }}>
+    <View style={styles.container}>
+      <CameraView
+        onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+        barcodeScannerSettings={{
+          barcodeTypes: ["qr", "pdf417"],
+        }}
+        style={StyleSheet.absoluteFillObject}
+      />
+      {scanned && (
+        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
-
-      {isConnected && (
-        <>
-          <Text style={styles.text}>Wallet Connected: {address}</Text>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Owner Address"
-            value={ownerAddress}
-            onChangeText={setOwnerAddress}
-          />
-
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={StyleSheet.absoluteFillObject}
-            type={facing === 'back' ? BarCodeScanner.Constants.Type.back : BarCodeScanner.Constants.Type.front}
-          />
-
-          {scanned && <Button title="Tap to Scan Again" onPress={() => setScanned(false)} />}
-
-          <Button title="Toggle Camera" onPress={toggleCameraFacing} />
-        </>
-      )}
-
+    </View>
     </LinearGradient>
+
   );
 };
 
 const styles = StyleSheet.create({
   text: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 18,
     margin: 10,
+  },
+  camera: {
+    flex: 1,
   },
   input: {
     height: 40,
@@ -234,7 +235,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
-    color: '#fff',
+    color: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    margin: 64,
+  },
+  button: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 
