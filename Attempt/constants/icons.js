@@ -20,6 +20,7 @@ import verify from "../assets/icons/verify.png";
 import home_final from "../assets/icons/home_final.png";
 import buy from "../assets/icons/buy.png";
 import sell from "../assets/icons/sell.png";
+import add from "../assets/icons/add.png";
 export default {
   play,
   create,
@@ -43,4 +44,5 @@ export default {
   sell,
   buyAndSell,
   scanAndSell,
+  add,
 };
