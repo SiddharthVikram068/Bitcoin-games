@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, Alert, Button, TextInput, Animated } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Alert, Button, TextInput, Animated ,TouchableOpacity} from 'react-native';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
@@ -112,29 +112,42 @@ export const Home = () => {
       style={styles.container}
     >
       <View style={styles.container}>
-       
-        <Text style={styles.heading}>Home</Text>
-        <ProfileIcon  onConnect={handleWalletConnection} onDisconnect={handleWalletConnection} onDetails={() => {}} />
+        <View style={styles.heading}>
+          <Text style={styles.headingText}>Block</Text>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={testRegisterUser}
+          >
+            <Text style={styles.buttonText}>Register yourself</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.profile}>
+          <ProfileIcon onConnect={handleWalletConnection} onDisconnect={handleWalletConnection} onDetails={() => {}} />
+        </View>
+
+
         {user && (
-          <View style={styles.userInfo}>
+          <View style={styles.userInfoContainer}>
+            <Text style={styles.userInfoText}>User Info</Text>
             <Text style={styles.userInfoText}>Email: {user.email}</Text>
             <Text style={styles.userInfoText}>Username: {user.username}</Text>
             <Text style={styles.userInfoText}>Account ID: {user.accountId}</Text>
           </View>
         )}
-        <Text style={styles.footerText}>Block, your one stop solution to everything</Text>
-        <Button title="Logout" onPress={handleLogout} />
-        <Text></Text>
-        <Button title="Register yourself" onPress={testRegisterUser} /> 
 
+        <Text style={styles.footerText}>Block, your one-stop solution to everything</Text>
 
-        <Text style={styles.text}>{isConnected ? 'wallet is connected' : 'wallet is not connected'}</Text>
-        <Link href="../(auth)/sign-in" style={styles.link}>Go To Sign In</Link>
-        <Button
-          onPress={handleWalletConnection}
-          title={isConnected ? "Disconnect" : "Connect"}
-          color="#B0B0B0" // Greyish color
-        />
+      
+        <View style={styles.bottm}>
+         <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleWalletConnection}
+          >
+              <Text style={styles.buttonText}>{isConnected ? "Disconnect" : "Connect"}</Text>
+
+          </TouchableOpacity>
+        </View>
+        {/* Assuming WalletConnectModal is used correctly */}
         <WalletConnectModal
           projectId={projectId}
           providerMetadata={providerMetadata}
@@ -147,54 +160,63 @@ export const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+   
+    paddingTop: "5%", // Adjusted marginTop to paddingTop for better consistency
   },
   heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20,
+  },
+  headingText: {
+    fontSize: 34,
+    fontWeight: 'bold',
     color: 'white',
   },
-  text: {
-    fontSize: 20,
-    marginBottom: 20,
-    color: 'white', // Change text color to white
+  registerButton: {
+    backgroundColor: '#6c5ce7',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
   },
-  userInfo: {
-    marginBottom: 20,
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+  },
+  profile: {
+    alignItems: 'center',
+    marginTop:"20%"
+
+  },
+  userInfoContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+    borderRadius: 10,
     marginBottom: 20,
-    width: '90%',
+    width: '100%',
+    marginTop: "10%",
+    alignItems: 'center', // Adjusted to center content
   },
   userInfoText: {
     fontSize: 18,
     marginBottom: 10,
-    color: 'white', // Change user info text color to white
+    color: 'white',
   },
-  link: {
-    color: 'white', // Change link text color to white
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    padding: 10,
-    width: '80%',
-    color: 'white', // Change input text color to white
-    backgroundColor: 'white',
+  text: {
+    fontSize: 30,
+    marginBottom: 20,
+    color: 'white',
   },
   footerText: {
-    fontSize: 16,
+    fontSize: 26,
     fontStyle: 'italic',
     color: '#666',
     marginTop: 20,
+  },
+  bottm: {
+    marginTop: "80%",
+    alignItems: 'center',
   },
 });
 
