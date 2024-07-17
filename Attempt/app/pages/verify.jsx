@@ -107,7 +107,7 @@
 
 // export default Page3
 
-import { View, Text, TextInput, ScrollView, RefreshControl, StyleSheet, Linking } from 'react-native';
+import { View, Text, TextInput, ScrollView, Button, RefreshControl, StyleSheet, Linking } from 'react-native';
 import { ethers } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
@@ -116,7 +116,8 @@ import { CameraView } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useGlobalContext } from "../../context/GlobalProvider";
 
-import {Transaction,contactAddress} from '../../config';
+import {TransactionABI,contractAddress} from '../../config.js';
+const abi = TransactionABI;
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
@@ -133,12 +134,12 @@ const providerMetadata = {
 
 
 const Page3 = () => { 
-
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
   const [facing, setFacing] = useState('back');
   const [scanned, setScanned] = useState(false);
-
+  const [ownerAddress, setOwnerAddress] = useState('');
+  
   const setupProvider = useCallback(async () => {
     if (provider) {
       console.log('Provider:', provider);
@@ -206,11 +207,13 @@ const Page3 = () => {
             onChangeText={setOwnerAddress}
           />
 
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={StyleSheet.absoluteFillObject}
-            type={facing === 'back' ? BarCodeScanner.Constants.Type.back : BarCodeScanner.Constants.Type.front}
-          />
+      <CameraView
+        onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+        barcodeScannerSettings={{
+          barcodeTypes: ["qr", "pdf417"],
+        }}
+        style={StyleSheet.absoluteFillObject}
+      />
 
           {scanned && <Button title="Tap to Scan Again" onPress={() => setScanned(false)} />}
 
