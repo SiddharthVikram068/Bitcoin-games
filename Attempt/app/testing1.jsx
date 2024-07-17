@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Tab1 from '../components/TabBarBuy';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
-import RadioButton from './RadioButton'; // Adjust the path as needed
+// import RadioButton from './RadioButton'; // Adjust the path as needed
 import { LinearGradient } from 'expo-linear-gradient';
-import ProfileIcon from './ProfileIcon';
+// import ProfileIcon from './ProfileIcon';
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
@@ -36,15 +36,7 @@ const App1 = () => {
   return (
     
     <View style={{ flex: 1 }}>
-      <ProfileIcon onConnect={handleWalletConnection} onDisconnect={handleWalletConnection} onDetails={() => {}} />
-      <View style={styles.container}>
-        <RadioButton
-          selected={isConnectedState}
-          onPress={handleWalletConnection}
-          label={isConnectedState ? "Disconnect" : "Connect"}
-        />
-        {/* {isConnectedState && <Text>Connected: {address}</Text>} */}
-      </View>
+      
       <Tab1 />
     </View>
     // </LinearGradient>

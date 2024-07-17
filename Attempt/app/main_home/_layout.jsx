@@ -8,12 +8,12 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 import { useWalletConnectModal } from "@walletconnect/modal-react-native";
 import { Alert, View, StyleSheet } from 'react-native';
-
+import {router} from 'expo-router';
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { isConnected, provider } = useWalletConnectModal();
+  const { open,isConnected, provider } = useWalletConnectModal();
 
   const handleLogout = async () => {
     try {
@@ -21,18 +21,18 @@ function CustomDrawerContent(props) {
       setUser(null);
       setIsLogged(false);
       Alert.alert("Success", "You have been logged out");
+      router.replace("/sign-in")
     } catch (error) {
       Alert.alert("Error", error.message);
     }
   };
 
   const handleDisconnect = async () => {
-    try {
-      await provider?.disconnect();
-      Alert.alert("Success", "You have been disconnected");
-    } catch (error) {
-      Alert.alert("Error", error.message);
+    if (isConnected) {
+      return provider?.disconnect();
     }
+    
+    return open();
   };
 
   return (
@@ -45,9 +45,10 @@ function CustomDrawerContent(props) {
           label="Logout"
           labelStyle={{ color: 'white' }}
           onPress={handleLogout}
-        />
+          />
+          {/* router.replace("/sign-in") */}
         <DrawerItem
-          label="Disconnect"
+          label={isConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
           labelStyle={{ color: 'white' }}
           onPress={handleDisconnect}
         />

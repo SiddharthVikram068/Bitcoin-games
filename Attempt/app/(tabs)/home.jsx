@@ -103,6 +103,7 @@ export const Home = () => {
     if (isConnected) {
       return provider?.disconnect();
     }
+    
     return open();
   };
 
