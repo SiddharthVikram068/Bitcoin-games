@@ -112,3 +112,15 @@ By following these steps, you will set up and run the B.L.O.C.K. project locally
 - Hardhat
 - Metamask
 - Sepolia TestNet
+
+## Youtube Resources
+
+### PART 1
+- **Title**:  B.L.O.C.K Bitcoin Games 2024 Hackathon PART 1
+- **Description**: Introduction to Code 
+- **Link**: [Watch on YouTube](https://www.youtube.com/watch?v=fgdHFqUbhwM)
+
+### PART 2
+- **Title**:  B.L.O.C.K Bitcoin Games 2024 Hackathon PART 2 
+- **Description**: Introduction to App
+- **Link**: [Watch on YouTube](https://www.youtube.com/watch?v=-57fJBw1Ltw)
