@@ -13,6 +13,43 @@ B.L.O.C.K. is a decentralized marketplace on the Sepolia testnet that enables us
 - [@Hemang Seth](https://github.com/Hemang-2004)
 - [@Aryaman Pathak](https://github.com/aryamanpathak2022)
 
+## Project Structure
+
+The project is structured as follows:
+
+- **`Bitcoin-games/`**: Root directory of the project.
+
+  - **`Attempt/`**: Specific part of the project.
+
+    - **`Animation/`**: Directory for animation-related files.
+    - **`app/`**: Main application files.
+    - **`assets/`**: Directory for project assets like images, fonts, etc.
+    - **`components/`**: Reusable React components.
+    - **`constants/`**: Constants used throughout the project.
+    - **`context/`**: React context providers.
+    - **`hooks/`**: Custom React hooks.
+    - **`lib/`**: Utility functions and libraries.
+    - **`scripts/`**: Scripts for automation or build tasks.
+    - **`README.md`**: Documentation file for the Attempt part.
+    - **`...`**: Other project files and directories as needed.
+
+  - **`artifacts/`**: Compiled or generated artifacts.
+
+  - **`cache/`**: Cache directory for temporary files.
+
+  - **`.contracts/`**: Smart contracts directory.
+
+  - **`.node_modules/`**: Directory where npm installs project dependencies.
+
+  - **`.scripts/`**: Scripts directory for project-specific scripts.
+
+  - **`util/`**: Additional utility files.
+
+- **`LICENSE`**: License information for the project.
+
+- **`README.md`**: Main documentation file for the project.
+
+- **`...`**: Other project files and directories as needed.
 ## Deployment
 
 To deploy this project, please follow the given steps:
