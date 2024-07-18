@@ -84,12 +84,16 @@ const styles = StyleSheet.create({
   },
   scanAgainButton: {
     backgroundColor: '#6e3b6e',
-    borderRadius: 20,
-    padding: 10,
-    paddingHorizontal: 20,
-    marginVertical: 20,
-    margin:"35%",
-    width:"30%",
+    justifyContent:'center',
+    borderRadius: 10,
+    paddingLeft:27,
+    paddingBottom:6,
+    // padding: 10,
+    // paddingHorizontal: 20,
+    marginVertical: 10,
+    margin:"29.5%",
+    height:50,
+    width:150,
     textAlign:"centre"
 
   },

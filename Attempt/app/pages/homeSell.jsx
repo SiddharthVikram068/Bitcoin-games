@@ -1,30 +1,12 @@
-// import { View, Text } from 'react-native'
-// import React from 'react'
-// import { LinearGradient } from 'expo-linear-gradient';
-
-// import {Transaction,contactAddress} from '../../config';
-
-// const Page4 = () => {
-//   return (
-//     <LinearGradient
-//       colors={['#0f0c29', '#0f0c29']}
-//       style={{ flex: 1 }}>
-//     <View>
-//       <Text>Page4</Text>
-//     </View>
-//     </LinearGradient>
-//   )
-// }
-
-// export default Page4
-
-import { View, Text, TextInput, ScrollView, Button, RefreshControl, StyleSheet, Linking } from 'react-native';
-import { ethers ,BigNumber } from 'ethers';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { ethers, BigNumber } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { TransactionABI, contractAddress } from '../../config';
+import LottieView from 'lottie-react-native';
+
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 const abi = TransactionABI;
 
@@ -49,7 +31,6 @@ const HomeSelling = () => {
 
   const setupProvider = useCallback(async () => {
     if (provider) {
-      console.log('Provider:', provider);
       const ethersProvider = new ethers.providers.Web3Provider(provider);
       const signer = ethersProvider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, signer);
@@ -62,11 +43,6 @@ const HomeSelling = () => {
       const { contract } = await setupProvider();
       const products = await contract.getAllProductsByOwner(_ownerAddress);
       setProducts(products);
-      console.log('Products:', products);
-      console.log('Price:' , BigNumber.from(products[0].price).toString());
-      // console.log('Price:' , BigNumber.from(products[1].price).toString());
-      // console.log('Price:' , BigNumber.from(products[2].price).toString());
-      // jitne bhi price ha, usko "BigNumber.from(products[0].price).toString()" access karo
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -76,7 +52,7 @@ const HomeSelling = () => {
     if (ownerAddress) {
       allProductsOfOwner(ownerAddress);
     } else {
-      alert('Please enter an owner address');
+      Alert.alert('Error', 'Please enter an owner address');
     }
   };
 
@@ -84,26 +60,18 @@ const HomeSelling = () => {
     try {
       const { contract, signer } = await setupProvider();
       const allProducts = await contract.getAllProductsByOwner(ownerAddress);
-      console.log('All Products:', allProducts);
-      //now we search in a loop the number of products the owner has, and match the product description with the input description
-      //then we get the product hash of that product and set it for sale
       let _productHash = '';
       for (let i = 0; i < allProducts.length; i++) {
         if (allProducts[i].description === _description) {
           _productHash = allProducts[i].productHash;
-          console.log('Product Hash:', _productHash);
           break;
         }
       }
-      console.log('Product Hash:', _productHash);
       if (!_productHash) {
-        alert('Product not found');
+        Alert.alert('Error', 'Product not found');
         return;
       }
-
-
       const transaction = await contract.setProductForSale(_productHash);
-      console.log('Transaction:', transaction);
     } catch (error) {
       console.error('Error setting for sale:', error);
     }
@@ -113,63 +81,77 @@ const HomeSelling = () => {
     if (description) {
       setForSale(description);
     } else {
-      alert('Please enter an owner address');
+      Alert.alert('Error', 'Please enter a product description');
     }
   };
-
-
 
   return (
     <LinearGradient
       colors={['#0f0c29', '#0f0c29']}
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      style={{ flex: 1, padding: 20 }}>
       
-      {!isConnected && (
-        <Button title="Connect Wallet" onPress={open} />
-      )}
+      <View style={styles.container}>
+        <LottieView 
+          source={require('../../Animation/wallet.json')} 
+          autoPlay 
+          loop 
+          style={styles.lottie}
+        />
+        <Text style={styles.heading}>Manage Your Items</Text>
 
-      {isConnected && (
-        <View style={styles.container}>
-          <Text style={styles.text}>Wallet Connected: {address}</Text>
+        {!isConnected && (
+          <TouchableOpacity style={styles.button} onPress={open}>
+            <Text style={styles.buttonText}>Connect Wallet</Text>
+          </TouchableOpacity>
+        )}
 
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Owner Address"
-            value={ownerAddress}
-            onChangeText={setOwnerAddress}
-          />
-          <Button title="Fetch Products" onPress={handleFetchProducts.bind(this, ownerAddress)} />
+        {isConnected && (
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Owner Address"
+              placeholderTextColor="#ccc"
+              value={ownerAddress}
+              onChangeText={setOwnerAddress}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleFetchProducts.bind(this, ownerAddress)}>
+              <Text style={styles.buttonText}>Fetch Products</Text>
+            </TouchableOpacity>
 
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Product Description"
+              placeholderTextColor="#ccc"
+              value={description}
+              onChangeText={setDescription}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleSetForSale.bind(this, description)}>
+              <Text style={styles.buttonText}>Set Product For Sale</Text>
+            </TouchableOpacity>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Product Description"
-            value={description}
-            onChangeText={setDescription}
-          />
-          <Button title="Set Product For Sale" onPress={handleSetForSale.bind(this, description)} />
-
-          {/* {loading ? (
-            <Text style={styles.text}>Loading...</Text>
-          ) : (
-            <ScrollView style={styles.scrollView}>
-              {products.length > 0 ? (
-                products.map((product, index) => (
-                  <View key={index} style={styles.product}>
-                    <Text style={styles.text}>Product Hash: {product.productHash}</Text>
-                    <Text style={styles.text}>Description: {product.description}</Text>
-                    <Text style={styles.text}>Price: {product.price}</Text>
-                    <Text style={styles.text}>Is For Sale: {product.isForSale ? 'Yes' : 'No'}</Text>
-                    <Text style={styles.text}>Owner: {product.owner}</Text>
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.text}>No products found for this owner.</Text>
-              )}
-            </ScrollView>
-          )} */}
-        </View>
-      )}
+            {loading ? (
+              <Text style={styles.text}>Loading...</Text>
+            ) : (
+              <ScrollView style={styles.scrollView}>
+                {products.length > 0 ? (
+                  products.map((product, index) => (
+                    <View key={index} style={styles.product}>
+                      <Text style={styles.text}>Product Hash: {product.productHash}</Text>
+                      <Text style={styles.text}>Description: {product.description}</Text>
+                      <Text style={styles.text}>Price: {BigNumber.from(product.price).toString()}</Text>
+                      <Text style={styles.text}>Is For Sale: {product.isForSale ? 'Yes' : 'No'}</Text>
+                      <Text style={styles.text}>Owner: {product.owner}</Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.text}>No products found for this owner</Text>
+                )}
+              </ScrollView>
+            )}
+          </View>
+        )}
+      </View>
+      <WalletConnectModal projectId={projectId} providerMetadata={providerMetadata} />
     </LinearGradient>
   );
 };
@@ -178,12 +160,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 10,
   },
-  text: {
+  heading: {
+    fontSize: 35,
+    fontWeight: 'bold',
     color: '#fff',
-    fontSize: 18,
-    margin: 10,
+    marginBottom: 20,
+    fontFamily: 'Blacknorthdemo-mLE25',
+  },
+  formContainer: {
+    width: '100%',
+    alignItems: 'center',
   },
   input: {
     height: 40,
@@ -192,6 +180,29 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
     color: '#fff',
+    width: '80%',
+    borderRadius: 8,
+  },
+  button: {
+    backgroundColor: '#6c5ce7',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 17,
+    margin: "10%",
+    alignContent:'center',
+    alignItems:'center',
   },
   scrollView: {
     width: '100%',
@@ -201,6 +212,11 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     padding: 10,
     margin: 10,
+    borderRadius: 8,
+  },
+  lottie: {
+    width: 150,
+    height: 200,
   },
 });
 

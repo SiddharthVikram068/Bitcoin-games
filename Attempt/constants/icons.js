@@ -21,6 +21,8 @@ import home_final from "../assets/icons/home_final.png";
 import buy from "../assets/icons/buy.png";
 import sell from "../assets/icons/sell.png";
 import add from "../assets/icons/add.png";
+import globe from "../assets/icons/globe.png";
+import inventory from "../assets/icons/inventory.png"
 export default {
   play,
   create,
@@ -44,5 +46,7 @@ export default {
   sell,
   buyAndSell,
   scanAndSell,
+  globe,
   add,
+  inventory,
 };

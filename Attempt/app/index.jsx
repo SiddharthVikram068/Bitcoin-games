@@ -85,12 +85,13 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     marginTop: 50,
-    fontFamily: 'Poppins-Bold',
+    fontSize:40,
+    fontFamily: 'MoonkidsPersonalUseExtbd-gxPZ3',
   },
   text: {
-    fontSize: 44,
+    fontSize: 54,
     fontWeight: 'bold',
-    fontFamily: 'Poppins-Bold', // Correctly apply the custom font
+    fontFamily: 'MoonkidsPersonalUseExtbd-gxPZ3', // Correctly apply the custom font
     color: "#00f0f0", // Updated glow color to yellow
     textShadowColor: "#0000f0",
     textShadowRadius: 15,

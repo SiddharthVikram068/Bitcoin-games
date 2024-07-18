@@ -15,8 +15,8 @@ const Tab1 = () => {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
-            iconName = icons.home_final;
+          if (route.name === 'Events') {
+            iconName = icons.globe;
           } else if (route.name === 'Scan') {
             iconName = icons.buyAndSell;
           } else if (route.name === 'Verify') {
@@ -41,7 +41,7 @@ const Tab1 = () => {
       })}
     >
       <Tab.Screen 
-        name="Home" 
+        name="Events" 
         component={Page1} 
       />
       <Tab.Screen 

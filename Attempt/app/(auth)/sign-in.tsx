@@ -126,7 +126,7 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
 
-          <Button title="Go home" onPress={() => router.replace("../main_home")} />
+          {/* <Button title="Go home" onPress={() => router.replace("../main_home")} /> */}
           <View style={styles.signUpContainer}>
             <Text style={styles.signUpText}>
               Don't have an account?  

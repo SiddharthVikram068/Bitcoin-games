@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { View, Button, Text,StyleSheet } from 'react-native';
 import Tab2 from '../components/TabBarSell';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
-import RadioButton from './RadioButton'; // Adjust the path as needed
+// import RadioButton from './RadioButton'; // Adjust the path as needed
 
 const projectId = "cd428d8e5b937ca8170797f5e352171d";
 
@@ -33,14 +33,7 @@ const App2 = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <RadioButton
-          selected={isConnectedState}
-          onPress={handleWalletConnection}
-          label={isConnectedState ? "Disconnect Wallet" : "Connect Wallet"}
-        />
-        {/* {isConnectedState && <Text>Connected: {address}</Text>} */}
-      </View>
+      
       <Tab2 />
     </View>
   );
