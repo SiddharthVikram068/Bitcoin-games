@@ -1,231 +1,114 @@
-# `rsk-hardhat-starter`
+# `Welcome to B.L.O.C.K`
 
-## Get started
+B.L.O.C.K. is a decentralized marketplace on the Sepolia testnet that enables users to buy and sell verified products securely and transparently. By leveraging smart contracts and wallet integration, it ensures the authenticity of products and facilitates seamless transactions. This platform is designed for anyone seeking a trustworthy and efficient way to trade products online, from everyday consumers to small business owners.
 
-(1) Fork this repo on GitHub, and clone it with git
 
-Press the "Fork" button in GitHub (top right of page).
 
-Open a terminal:
 
-```shell
-git clone git@github.com:YOURNAME/rsk-hardhat-starter.git
-```
+## `Authors`
 
-Start in the repo:
+- [@Siddharth Vikram](https://github.com/SiddharthVikram068)
+- [@Tanish Pathania](https://github.com/Tanish-pat)
+- [@Hemang Seth](https://github.com/Hemang-2004)
+- [@Aryaman Pathak](https://github.com/aryamanpathak2022)
 
-```shell
-cd rsk-hardhat-starter
-npm install
-```
+## `Project Structure`
 
-Note that installing the dependencies can take
-several minutes.
+The project is structured as follows:
 
-(2) Generate a seed phrase to use in RSK Testnet
+- *Bitcoin-games/*: Root directory of the project.
 
-```shell
-npm run new-rsktestnet-seed-phrase
-```
+  - *Attempt/*: Specific part of the project.
 
-(3) Download the latest block via RPC from RSK Testnet
+    - *Animation/*: Directory for animation-related files.
+    - *app/*: Main application files.
+    - *assets/*: Directory for project assets like images, fonts, etc.
+    - *components/*: Reusable React components.
+    - *constants/*: Constants used throughout the project.
+    - *context/*: React context providers.
+    - *hooks/*: Custom React hooks.
+    - *lib/*: Utility functions and libraries.
+    - *scripts/*: Scripts for automation or build tasks.
+    - *README.md*: Documentation file for the Attempt part.
+    - *...*: Other project files and directories as needed.
 
-```shell
-npm run new-rsktestnet-block
-```
+  - *artifacts/*: Compiled or generated artifacts.
 
-(4) Connect to the RSK Testnet
+  - *cache/*: Cache directory for temporary files.
 
-```shell
-npm run console-rsktestnet
-```
+  - *.contracts/*: Smart contracts directory.
 
-This should open up an interactive shell
-in which you can interact with RSK Testnet
-via Hardhat's runtime environment.
+  - *.node_modules/*: Directory where npm installs project dependencies.
 
-Run the following commands to:
-- Obtain the latest block number.
-- Obtain the address of the 1st account generated from your seed phrase.
-- Exit the REPL
+  - *.scripts/*: Scripts directory for project-specific scripts.
 
-```js
-> (await require('hardhat').network.provider.send('eth_getBlockByNumber', ['latest', false])).minimumGasPrice
-'0x387ee40'
+  - *util/*: Additional utility files.
 
-> (await hre.ethers.getSigners())[0].address
-'0x9f62F68286EB1e29b2C227658672027A182a92A8'
+- *LICENSE*: License information for the project.
 
-> .exit
-```
+- *README.md*: Main documentation file for the project.
 
-Copy the address to your clipboard,
-as you will need it in the next step.
+- *...*: Other project files and directories as needed.
+## `Deployment`
 
-(5) Fund your account with the RSK Testnet faucet
+To deploy this project, please follow the given steps:
 
-Visit [`https://faucet.rsk.co/`](https://faucet.rsk.co/)
+1. *Clone the repository:*
 
-Paste the address that you copied earlier,
-and enter the *Captcha*.
+    bash
+    git clone git@github.com:SiddharthVikram068/Bitcoin-games.git
+    
 
-Press the "Get test tRBTC" button.
+    This command clones the project repository from GitHub to your local machine, allowing access to all necessary files and code.
 
-Wait for the next block to be mined,
-after which you should get a "Sent" dialog.
+2. *Navigate to the project directory:*
 
-Open the "transaction hash" link to view
-the transaction in the RSK block explorer.
+    bash
+    cd Bitcoin-games/
+    
 
-For example
-[`0xe56bd0d23c5391d7b8771c5dac4aecb7bc9cee186a70a0ebc7c1442a720b4012`](https://explorer.testnet.rsk.co/tx/0xe56bd0d23c5391d7b8771c5dac4aecb7bc9cee186a70a0ebc7c1442a720b4012)
+    Change your current directory to the Bitcoin-games folder where the project files are located.
 
-You can also search for your account address in the same block explorer using the account address.
+3. *Checkout the master branch:*
 
-For example
-[0x9f62f68286eb1e29b2c227658672027a182a92a8](https://explorer.testnet.rsk.co/address/0x9f62f68286eb1e29b2c227658672027a182a92a8)
+    bash
+    git checkout master
+    
 
-(6) Compile the smart contracts
+    Ensure you are on the master branch, which typically contains the stable version of the code.
 
-This "empties" the results of any previous build/ compilation.
+4. *Navigate to the specific project directory:*
 
-```shell
-npm run clean
-```
+    bash
+    cd Attempt/
+    
 
-Then this uses `solc` to compile the smart contracts.
+    Change your directory to Attempt, which contains the specific part of the project you want to run.
 
-```shell
-npm run compile
-```
+5. *Install the project dependencies:*
 
-You should see the following output:
-
-> Compiled 2 Solidity files successfully
+    bash
+    npm install
+    
 
-... Now give yourself a pat on the back,
-you're about halfway there!
-🎉🎉🎉🎉🎉🎉
-
-(7) Test the smart contracts
-
-```shell
-npm run test
-```
-
-(8) Deploy the smart contracts
+    Install all necessary dependencies listed in the package.json file to ensure the project runs correctly.
 
-```shell
-npm run deploy-rsktestnet
-```
+6. *Start the project using Expo:*
 
-Note that this will take some time,
-usually around 2 minutes.
-
-You should then see output that looks similar to this:
-
-```text
-'RskStarterLogs' was deployed on rsktestnet with address 0x77B37aA728d35baAd82113a2cE9758F0E9C0Abcd
-'RskStarter' was deployed on rsktestnet with address 0xD26a59de92833CBa90483EcEb50c5728d5eF13Bf
-```
+    bash
+    npx expo start --tunnel
+    
 
-Copy these addresses and save them somewhere,
-you will need them in the next step!
+    This command starts the project using Expo, a framework for developing React Native applications. The --tunnel option allows you to access the project on your mobile device through a tunnel, facilitating testing on different devices.
 
-(9) Verify the smart contracts
+By following these steps, you will set up and run the B.L.O.C.K. project locally, enabling you to test and further develop it.
 
-First, we'll flatten all of the solidity source files
-into a single file.
-This makes verification easier to perform.
+## `Built with`
 
-```shell
-npm run flatten
-```
-
-Now edit `flattened.sol`,
-and delete all except for the first occurrence
-of the following line:
-
-```solidity
-// SPDX-License-Identifier: GPL-3.0
-```
-
-Search for the smart contract address `RskStarterLogs`
-one of the smart contracts just deployed,
-in the RSK Testnet Explorer,
-then click on the "Code" tab.
-
-You should see a "Bytecode".
-Press the "Verify Contract" button.
-Fill in the form as follows:
-
-| Field | Value |
-|---|---|
-| Contract Address | (leave default) |
-| Contract name | `RskStarterLogs` |
-| Source file | (upload `flattened.sol`) |
-| Compiler | Select `0.8.7...` from dropdown |
-| Optimization | `no` |
-| EVM version | `latest` |
-| Constructor Arguments | (leave empty) |
-| ABI encoded arguments | `no` |
-| Contract Libraries | (leave default) |
-
-Press the "Verify" button.
-You should see "Contract verification successful".
-
-Click on "Go to contract page".
-Click on the "Code" tab, which now has a check mark next to it.
-You should now see:
-- Contract ABI
-- Contract Source
-- Compilation Settings
-- Bytecode
-
-For example,
-[`0x77b37aa728d35baad82113a2ce9758f0e9c0abcd`](https://explorer.testnet.rsk.co/address/0x77b37aa728d35baad82113a2ce9758f0e9c0abcd?__ctab=Code).
-
-Now repeat the process for `RskStarterLogs`.
-
-| Field | Value |
-|---|---|
-| Contract Address | (leave default) |
-| Contract name | `RskStarter` |
-| Source file | (upload `flattened.sol`) |
-| Compiler | Select `0.8.7...` from dropdown |
-| Optimization | `no` |
-| EVM version | `latest` |
-| Constructor Arguments | (copy the deployed address of `RskStarterLogs`) |
-| ABI encoded arguments | `no` |
-| Contract Libraries | (leave default) |
-
-Note that only "Contract name" and "Constructor arguments"
-are different, the rest of the fields are the same as before.
-
-You should now be able to view the verified code tab
-for this smart contract too.
-For example,
-[`0xd26a59de92833cba90483eceb50c5728d5ef13bf`](https://explorer.testnet.rsk.co/address/0xd26a59de92833cba90483eceb50c5728d5ef13bf?__ctab=Code).
-
-(10) Congratulations!
-You have got live smart contracts on RSK!
-🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
-
-## Next steps
-
-Here are some ideas:
-
-- Change the smart contracts to do something specific to what you want
-- Add more tests
-- Improve code coverage
-- Lint code
-- Self-audit for security issues
-- Implement a front-end client application to talk to your DApps
-
-## Author
-
-[Brendan Graetz](https://bguiz.com/)
-
-## Licence
-
-GPL-3.0
+- Solidity
+- React-Native
+- Typescript
+- javascript XML
+- Hardhat
+- Metamask
+- Sepolia TestNet

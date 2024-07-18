@@ -1,13 +1,12 @@
-import { View, Text, ScrollView, StyleSheet, Alert, Button, TextInput, Animated ,TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { logout } from "../../lib/appwrite";
 import { LinearGradient } from 'expo-linear-gradient';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
-import { Link } from 'expo-router';
 import { ethers } from 'ethers';
-import ProfileIcon from "../ProfileIcon";
 import { TransactionABI, contractAddress } from '../../config.js';
+import { images } from '../../constants';
 
 const abi = TransactionABI;
 
@@ -27,10 +26,6 @@ const providerMetadata = {
 export const Home = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { open, isConnected, address, provider } = useWalletConnectModal();
-  
-  // const [ownerAddress, setOwnerAddress] = useState('');
-  // const [description, setDescription] = useState('');
-  // const [price, setPrice] = useState('');
 
   const handleLogout = async () => {
     try {
@@ -58,8 +53,8 @@ export const Home = () => {
       return { contract, signer };
     }
   }, [provider]);
-  
-  const testRegisterUser = async() => {
+
+  const testRegisterUser = async () => {
     const { contract } = await setupProvider();
     console.log('Contract:', contract);
 
@@ -75,34 +70,12 @@ export const Home = () => {
       console.error('Error:', error);
     }
   };
-  
-  // const productRegistration = async (_ownerAddress, _description, _price) => {
-  //   const { contract } = await setupProvider();
-  //   console.log('Contract:', contract);
-
-  //   try {
-  //     const tx = await contract.registerProduct(_ownerAddress, _description, ethers.utils.parseUnits(_price, 'ether'));
-  //     await tx.wait();
-  //     console.log('Transaction:', tx);
-  //     Alert.alert('Product registered successfully', `Owner: ${_ownerAddress}`);
-  //   } catch (error) {
-  //     console.error('Error registering product:', error);
-  //     Alert.alert('Error registering product');
-  //   }
-  // };
-
-  // const handleProductRegistration = () => {
-  //   if (!ownerAddress || !description || !price) {
-  //     Alert.alert('All fields are required');
-  //     return;
-  //   }
-  //   productRegistration(ownerAddress, description, price);
-  // };
 
   const handleWalletConnection = async () => {
     if (isConnected) {
       return provider?.disconnect();
     }
+
     return open();
   };
 
@@ -113,41 +86,44 @@ export const Home = () => {
     >
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.headingText}>Block</Text>
+          <Text style={styles.headingText}>BLOCK</Text>
           <TouchableOpacity
             style={styles.registerButton}
             onPress={testRegisterUser}
           >
-            <Text style={styles.buttonText}>Register yourself</Text>
+            <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.profile}>
-          <ProfileIcon onConnect={handleWalletConnection} onDisconnect={handleWalletConnection} onDetails={() => {}} />
-        </View>
-
 
         {user && (
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userInfoText}>User Info</Text>
-            <Text style={styles.userInfoText}>Email: {user.email}</Text>
-            <Text style={styles.userInfoText}>Username: {user.username}</Text>
-            <Text style={styles.userInfoText}>Account ID: {user.accountId}</Text>
+            <View style={styles.overlappingContainer}>
+              <Image source={images.person} style={styles.overlappingImage} />
+            </View>
+            <TouchableOpacity style={styles.userInfoItem}>
+              <Text style={styles.labelText}>EMAIL:</Text>
+              <View style={styles.textBox}>
+                <Text style={styles.userInfoText}>{user.email}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.userInfoItem}>
+              <Text style={styles.labelText}>USERNAME:</Text>
+              <View style={styles.textBox}>
+                <Text style={styles.userInfoText}>{user.username}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.userInfoItem}>
+              <Text style={styles.labelText}>ACCOUNT ID:</Text>
+              <View style={styles.textBox}>
+                <Text style={styles.userInfoText}>{user.accountId}</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         )}
 
-        <Text style={styles.footerText}>Block, your one-stop solution to everything</Text>
-
-      
-        <View style={styles.bottm}>
-         <TouchableOpacity
-            style={styles.registerButton}
-            onPress={handleWalletConnection}
-          >
-              <Text style={styles.buttonText}>{isConnected ? "Disconnect" : "Connect"}</Text>
-
-          </TouchableOpacity>
+        <View style={styles.bottom}>
         </View>
-        {/* Assuming WalletConnectModal is used correctly */}
+
         <WalletConnectModal
           projectId={projectId}
           providerMetadata={providerMetadata}
@@ -160,8 +136,7 @@ export const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
-    paddingTop: "5%", // Adjusted marginTop to paddingTop for better consistency
+    paddingTop: "5%",
   },
   heading: {
     flexDirection: 'row',
@@ -170,6 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headingText: {
+    fontFamily: 'Blacknorthdemo-mLE25',
     fontSize: 34,
     fontWeight: 'bold',
     color: 'white',
@@ -186,35 +162,51 @@ const styles = StyleSheet.create({
   },
   profile: {
     alignItems: 'center',
-    marginTop:"20%"
-
+    marginTop: "20%",
+  },
+  overlappingContainer: {
+    alignItems: 'center',
+    marginBottom: 35,  // Adjust this value as needed
+  },
+  overlappingImage: {
+    width: 130,
+    height: 130,
+    borderRadius: 100,
+    marginBottom: 20,
+  },
+  personStyle: {
+    width: 130,
+    height: 130,
+    borderRadius: 100,
   },
   userInfoContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: 20,
     borderRadius: 10,
+    paddingBottom: 20,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 105, // Ensure this matches the negative margin in overlappingContainer
+  },
+  userInfoItem: {
     marginBottom: 20,
     width: '100%',
-    marginTop: "10%",
-    alignItems: 'center', // Adjusted to center content
+  },
+  labelText: {
+    fontSize: 18,
+    color: '#cccccc',
+    marginBottom: 5,
+  },
+  textBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 10,
+    borderRadius: 8,
   },
   userInfoText: {
     fontSize: 18,
-    marginBottom: 10,
     color: 'white',
   },
-  text: {
-    fontSize: 30,
-    marginBottom: 20,
-    color: 'white',
-  },
-  footerText: {
-    fontSize: 26,
-    fontStyle: 'italic',
-    color: '#666',
-    marginTop: 20,
-  },
-  bottm: {
+  bottom: {
     marginTop: "80%",
     alignItems: 'center',
   },

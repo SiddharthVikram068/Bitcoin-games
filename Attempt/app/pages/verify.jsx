@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, RefreshControl, StyleSheet, Linking, Alert, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { ethers } from 'ethers';
 import { WalletConnectModal, useWalletConnectModal } from "@walletconnect/modal-react-native";
 import React, { useState, useEffect, useCallback } from 'react';
@@ -24,7 +24,6 @@ const providerMetadata = {
 
 const Page3 = () => {
   const { open, isConnected, address, provider } = useWalletConnectModal();
-  const [facing, setFacing] = useState('back');
   const [scanned, setScanned] = useState(false);
   const [ownerAddress, setOwnerAddress] = useState(null);
   const [input, setInput] = useState('');
@@ -62,12 +61,7 @@ const Page3 = () => {
 
     try {
       const ans = await contract.verifyOwner(ownerAddress, productHash);
-      // await ans.wait();
   
-      // console.log('Transaction:', tx);
-      // console.log('owner registered' + ownerAddress);
-      // console.log('Transaction:', ans);
-
       if (ans === true) {
         Alert.alert("Product belongs to the address");
       } else {
@@ -97,18 +91,20 @@ const Page3 = () => {
       colors={['#0f0c29', '#0f0c29']}
       style={{ flex: 1 }}>
       <View style={styles.container}>
+        <Text style={styles.headerStyle}>Product Verification</Text>
         {ownerAddress === null ? (
-          <>
+          <View style={styles.centerContainer}>
             <TextInput
               style={styles.input}
-              placeholder="Enter the address to verify the product for"
+              placeholder="Enter The Address To Verify The Product"
               placeholderTextColor="#888"
               onChangeText={setInput}
-              value={input
-             }
+              value={input}
             />
-            <Button style={styles.but} title="Submit" onPress={handleSubmit} />
-          </>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         ) : (
           <>
             <CameraView
@@ -118,9 +114,9 @@ const Page3 = () => {
               }}
               style={StyleSheet.absoluteFillObject}
             />
-            {scanned && (
-              <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-            )}
+            {scanned && (<TouchableOpacity style={styles.scanButton} onPress={() => setScanned(false)}>
+              <Text style={styles.scanButtonText}>Tap to Scan Again</Text>
+            </TouchableOpacity>)}
           </>
         )}
       </View>
@@ -129,48 +125,55 @@ const Page3 = () => {
 };
 
 const styles = StyleSheet.create({
-  text: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    margin: 10,
-  },
-  camera: {
+  container: {
     flex: 1,
+    padding: 10,
+  },
+  headerStyle:{
+    color:'white',
+    fontSize:34,
+    marginTop:70,
+    fontStyle:'normal',
+    fontFamily:'Blacknorthdemo-mLE25',
+    alignContent:'center',
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     height: 40,
+    borderRadius: 10,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
     color: '#FFFFFF',
-  },
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    margin: 64,
+    width: '80%',
   },
   button: {
-    flex: 1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  but: {
-    backgroundColor: '#0f0c29',
-    borderRadius: 20,
+    backgroundColor: '#333',
+    borderRadius: 10,
     padding: 10,
     paddingHorizontal: 20,
-    marginVertical: 20,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+  },
+  scanButton: {
+    backgroundColor: '#333',
+    borderRadius: 10,
+    padding: 10,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 20,
+  },
+  scanButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
   },
 });
 

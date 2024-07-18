@@ -7,4 +7,5 @@ import logoSmall from "../assets/images/logo-small.png";
 import empty from "../assets/images/empty.png";
 import map from "../assets/images/maps.png";
 import cryptoWallet from "../assets/images/cryptoWallet.png";
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty,map, cryptoWallet };
+import person from "../assets/images/person.png";
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty,map, cryptoWallet,person };

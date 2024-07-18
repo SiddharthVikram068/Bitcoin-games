@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,TouchableOpacity,Text } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { CameraView } from 'expo-camera';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -37,8 +37,12 @@ const Page5 = ({ onScan }) => {
   return (
     <LinearGradient
       colors={['#0f0c29', '#0f0c29']}
-      style={{ flex: 1 }}>
+      style={{ flex: 1 , justifyContent: 'center', }}>
+         {scanned && (
+          <Button onPress={() => setScanned(false)} title="Scan Again" />
+        )}
     <View style={styles.container}>
+      
       <CameraView
         onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
         barcodeScannerSettings={{
@@ -46,17 +50,44 @@ const Page5 = ({ onScan }) => {
         }}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
+      
     </View>
     </LinearGradient>
+
+    
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+  
+    height:"50%",
+    width:"70%",
+    margin:"15%",
+    borderRadius:120
+
+   
+   
+  },
+  scanAgainButton: {
+    backgroundColor: '#6e3b6e',
+    justifyContent:'center',
+    borderRadius: 10,
+    paddingLeft:27,
+    paddingBottom:6,
+    // padding: 10,
+    // paddingHorizontal: 20,
+    marginVertical: 10,
+    margin:"29.5%",
+    height:50,
+    width:150,
+    textAlign:"centre"
+
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'bold',
   },
   camera: {
     flex: 1,
@@ -76,6 +107,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
+    // fontFamily:
+    fontFamily:'moonkids',
   },
 });
 

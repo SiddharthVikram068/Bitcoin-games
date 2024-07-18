@@ -62,7 +62,7 @@ const NewsList = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Web3 News</Text>
+      {/* <Text style={styles.heading}>Web3 News</Text> */}
       <FlatList
         data={news}
         keyExtractor={(item, index) => index.toString()}
