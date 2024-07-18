@@ -5,14 +5,14 @@ B.L.O.C.K. is a decentralized marketplace on the Sepolia testnet that enables us
 
 
 
-## Authors
+## `Authors`
 
 - [@Siddharth Vikram](https://github.com/SiddharthVikram068)
 - [@Tanish Pathania](https://github.com/Tanish-pat)
 - [@Hemang Seth](https://github.com/Hemang-2004)
 - [@Aryaman Pathak](https://github.com/aryamanpathak2022)
 
-## Project Structure
+## `Project Structure`
 
 The project is structured as follows:
 
@@ -49,7 +49,7 @@ The project is structured as follows:
 - *README.md*: Main documentation file for the project.
 
 - *...*: Other project files and directories as needed.
-## Deployment
+## `Deployment`
 
 To deploy this project, please follow the given steps:
 
@@ -103,7 +103,7 @@ To deploy this project, please follow the given steps:
 
 By following these steps, you will set up and run the B.L.O.C.K. project locally, enabling you to test and further develop it.
 
-## Built with
+## `Built with`
 
 - Solidity
 - React-Native
